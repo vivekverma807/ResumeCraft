@@ -7,7 +7,137 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        /* Enhanced Dashboard Styles */
+        .dashboard-container {
+            padding: 20px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .user-profile {
+            padding: 20px;
+            background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .user-avatar-large {
+            width: 100px;
+            height: 100px;
+            border: 3px solid white;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .collection.with-header {
+            border: none;
+        }
+        
+        .collection .collection-item {
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .collection .collection-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .collection .collection-item.active {
+            border-left: 3px solid #2196f3;
+            background-color: #e3f2fd;
+        }
+        
+        .dashboard-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .stat-card {
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            height: 100%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card h5 {
+            font-size: 2rem;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .quick-actions .btn-large {
+            width: 100%;
+            border-radius: 8px;
+            height: auto;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        @media only screen and (max-width: 992px) {
+            .sidebar {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,11 +145,13 @@
             <div class="container">
                 <a href="index.html" class="brand-logo">ResumeCraft</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">New Resume</a></li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../builder.html" class="btn waves-effect waves-light white blue-text text-darken-2"><i class="mdi mdi-plus left"></i>New Resume</a></li>
                     <li>
                         <a class="dropdown-trigger" href="#!" data-target="user-dropdown">
                             <img src="assets/images/user-placeholder.jpg" alt="User" class="circle user-avatar">
+                            <span class="hide-on-small-only" style="margin-left:8px;" id="nav-user-name">User</span>
+                            <i class="mdi mdi-chevron-down right"></i>
                         </a>
                     </li>
                 </ul>
@@ -27,10 +159,18 @@
                     <i class="mdi mdi-menu"></i>
                 </a>
                 <ul class="sidenav" id="mobile-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">New Resume</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="#!" id="logout-mobile">Logout</a></li>
+                    <li><div class="user-view">
+                        <div class="background blue darken-2"></div>
+                        <a href="#"><img class="circle" src="assets/images/user-placeholder.jpg"></a>
+                        <a href="#"><span class="white-text name" id="mobile-user-name">User</span></a>
+                        <a href="#"><span class="white-text email" id="mobile-user-email">user@example.com</span></a>
+                    </div></li>
+                    <li><a href="../index.html"><i class="mdi mdi-home"></i>Home</a></li>
+                    <li><a href="../builder.html"><i class="mdi mdi-file-document"></i>New Resume</a></li>
+                    <li><a href="dashboard.html"><i class="mdi mdi-view-dashboard"></i>Dashboard</a></li>
+                    <li><a href="profile.html"><i class="mdi mdi-account"></i>Profile</a></li>
+                    <li><div class="divider"></div></li>
+                    <li><a href="#!" id="logout-mobile"><i class="mdi mdi-logout"></i>Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -50,12 +190,14 @@
                         <div class="user-profile center-align">
                             <img src="assets/images/user-placeholder.jpg" alt="User" class="circle responsive-img user-avatar-large">
                             <h5 id="user-name">Loading...</h5>
-                            <p id="user-email">Loading...</p>
-                            <div class="progress">
-                                <div class="determinate" style="width: 75%"></div>
+                            <p id="user-email">user@example.com</p>
+                            <div class="progress white">
+                                <div class="determinate blue lighten-4" style="width: 75%"></div>
                             </div>
                             <p>Profile Strength: 75%</p>
-                            <a href="profile.html" class="btn waves-effect waves-light blue">Complete Profile</a>
+                            <a href="profile.html" class="btn waves-effect waves-light white blue-text text-darken-2">
+                                <i class="mdi mdi-account-edit left"></i>Complete Profile
+                            </a>
                         </div>
                         
                         <ul class="collection with-header">
@@ -64,6 +206,7 @@
                             <li class="collection-item"><a href="resumes.html"><i class="mdi mdi-file-document-multiple"></i> My Resumes</a></li>
                             <li class="collection-item"><a href="cover-letters.html"><i class="mdi mdi-email"></i> Cover Letters</a></li>
                             <li class="collection-item"><a href="templates.html"><i class="mdi mdi-palette"></i> Templates</a></li>
+                            <li class="collection-item"><a href="settings.html"><i class="mdi mdi-cog"></i> Settings</a></li>
                         </ul>
                     </div>
                 </div>
@@ -72,35 +215,35 @@
                 <div class="col s12 m8 l9">
                     <div class="dashboard-header">
                         <h4>Welcome Back, <span id="user-greeting">User</span>!</h4>
-                        <p>Here's what's happening with your resumes today</p>
+                        <p class="grey-text">Here's your resume activity summary</p>
                     </div>
                     
                     <!-- Stats Cards -->
                     <div class="row">
                         <div class="col s12 m6 l3">
-                            <div class="card-panel blue darken-2 white-text center-align">
-                                <i class="mdi mdi-file-document large"></i>
+                            <div class="stat-card blue darken-2">
+                                <i class="mdi mdi-file-document"></i>
                                 <h5 id="resume-count">0</h5>
                                 <p>Resumes Created</p>
                             </div>
                         </div>
                         <div class="col s12 m6 l3">
-                            <div class="card-panel green darken-2 white-text center-align">
-                                <i class="mdi mdi-cloud-download large"></i>
+                            <div class="stat-card green darken-2">
+                                <i class="mdi mdi-cloud-download"></i>
                                 <h5 id="download-count">0</h5>
                                 <p>Downloads</p>
                             </div>
                         </div>
                         <div class="col s12 m6 l3">
-                            <div class="card-panel orange darken-2 white-text center-align">
-                                <i class="mdi mdi-briefcase-check large"></i>
+                            <div class="stat-card orange darken-2">
+                                <i class="mdi mdi-briefcase-check"></i>
                                 <h5 id="applications-count">0</h5>
                                 <p>Job Applications</p>
                             </div>
                         </div>
                         <div class="col s12 m6 l3">
-                            <div class="card-panel purple darken-2 white-text center-align">
-                                <i class="mdi mdi-star large"></i>
+                            <div class="stat-card purple darken-2">
+                                <i class="mdi mdi-star"></i>
                                 <h5 id="favorites-count">0</h5>
                                 <p>Favorite Templates</p>
                             </div>
@@ -110,8 +253,12 @@
                     <!-- Recent Resumes -->
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Recent Resumes</span>
-                            <a href="builder.html" class="btn-floating btn-small waves-effect waves-light blue right"><i class="mdi mdi-plus"></i></a>
+                            <div class="card-title-wrapper">
+                                <span class="card-title">Recent Resumes</span>
+                                <a href="../builder.html" class="btn-floating btn-small waves-effect waves-light blue">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
                             
                             <table class="highlight responsive-table">
                                 <thead>
@@ -124,7 +271,22 @@
                                 </thead>
                                 <tbody id="resumes-table">
                                     <tr>
-                                        <td colspan="4" class="center-align">Loading resumes...</td>
+                                        <td>Senior Developer Resume</td>
+                                        <td>Modern</td>
+                                        <td>2 days ago</td>
+                                        <td>
+                                            <a href="#" class="btn-small blue"><i class="mdi mdi-eye"></i></a>
+                                            <a href="#" class="btn-small green"><i class="mdi mdi-download"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>UX Designer Portfolio</td>
+                                        <td>Creative</td>
+                                        <td>1 week ago</td>
+                                        <td>
+                                            <a href="#" class="btn-small blue"><i class="mdi mdi-eye"></i></a>
+                                            <a href="#" class="btn-small green"><i class="mdi mdi-download"></i></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -138,11 +300,14 @@
                                 <div class="card-content">
                                     <span class="card-title">Quick Actions</span>
                                     <div class="quick-actions">
-                                        <a href="builder.html" class="btn-large waves-effect waves-light blue">
+                                        <a href="../builder.html" class="btn-large waves-effect waves-light blue">
                                             <i class="mdi mdi-file-document left"></i> New Resume
                                         </a>
-                                        <a href="templates.html" class="btn-large waves-effect waves-light purple">
+                                        <a href="../templates.html" class="btn-large waves-effect waves-light purple">
                                             <i class="mdi mdi-palette left"></i> Browse Templates
+                                        </a>
+                                        <a href="cover-letters.html" class="btn-large waves-effect waves-light green">
+                                            <i class="mdi mdi-email-newsletter left"></i> Create Cover Letter
                                         </a>
                                     </div>
                                 </div>
@@ -153,12 +318,44 @@
                             <div class="card">
                                 <div class="card-content">
                                     <span class="card-title">Recent Activity</span>
-                                    <ul class="collection activity-feed" id="activity-feed">
-                                        <li class="collection-item avatar">
-                                            <i class="mdi mdi-information-outline circle blue"></i>
-                                            <span class="title">Loading activities...</span>
-                                        </li>
-                                    </ul>
+                                    <div class="activity-feed" id="activity-feed">
+                                        <div class="activity-item">
+                                            <div class="activity-icon blue">
+                                                <i class="mdi mdi-file-document"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <strong>Created new resume</strong>
+                                                <p>Senior Developer Resume</p>
+                                            </div>
+                                            <div class="activity-time">
+                                                2 days ago
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon green">
+                                                <i class="mdi mdi-download"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <strong>Downloaded resume</strong>
+                                                <p>PDF format</p>
+                                            </div>
+                                            <div class="activity-time">
+                                                3 days ago
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon purple">
+                                                <i class="mdi mdi-star"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <strong>Favorited template</strong>
+                                                <p>Modern Layout</p>
+                                            </div>
+                                            <div class="activity-time">
+                                                1 week ago
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -171,16 +368,25 @@
     <footer class="page-footer blue darken-3">
         <div class="container">
             <div class="row">
-                <div class="col s12">
-                    <h5>ResumeCraft Dashboard</h5>
-                    <p>Your personal resume management center</p>
+                <div class="col l6 s12">
+                    <h5 class="white-text">ResumeCraft</h5>
+                    <p class="grey-text text-lighten-4">Create professional resumes that get you hired faster.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Templates</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Pricing</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Blog</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright blue darken-4">
             <div class="container">
-                © 2025 ResumeCraft. All rights reserved.
-                <a class="grey-text text-lighten-4 right" href="#!">Help Center</a>
+                © 2025 ResumeCraft
+                <a class="grey-text text-lighten-4 right" href="#!">Privacy Policy</a>
             </div>
         </div>
     </footer>
@@ -190,7 +396,25 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="scripts/auth.js"></script>
-    <script src="scripts/dashboard.js"></script>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/dashboard.js"></script>
+    <script>
+        // Initialize Materialize components
+        document.addEventListener('DOMContentLoaded', function() {
+            M.Sidenav.init(document.querySelectorAll('.sidenav'));
+            M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+            
+            // Sample data population (replace with real data from Firebase)
+            document.getElementById('user-name').textContent = 'John Doe';
+            document.getElementById('user-greeting').textContent = 'John';
+            document.getElementById('nav-user-name').textContent = 'John Doe';
+            document.getElementById('mobile-user-name').textContent = 'John Doe';
+            document.getElementById('mobile-user-email').textContent = 'john@example.com';
+            document.getElementById('resume-count').textContent = '5';
+            document.getElementById('download-count').textContent = '12';
+            document.getElementById('applications-count').textContent = '3';
+            document.getElementById('favorites-count').textContent = '2';
+        });
+    </script>
 </body>
 </html>
