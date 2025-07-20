@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | ResumeCraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        .auth-container {
+            padding: 50px 0;
+        }
+        .auth-container .card {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .auth-links {
+            margin-top: 20px;
+        }
+        .progress {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title center-align">Create Your ResumeCraft Account</span>
+                        
+                        <form id="register-form">
+                            <div class="input-field">
+                                <input id="name" type="text" class="validate" required>
+                                <label for="name">Full Name</label>
+                            </div>
+                            
+                            <div class="input-field">
+                                <input id="email" type="email" class="validate" required>
+                                <label for="email">Email</label>
+                            </div>
+                            
+                            <div class="input-field">
+                                <input id="password" type="password" class="validate" required minlength="6">
+                                <label for="password">Password (min 6 characters)</label>
+                            </div>
+                            
+                            <div class="input-field">
+                                <input id="confirm-password" type="password" class="validate" required>
+                                <label for="confirm-password">Confirm Password</label>
+                            </div>
+                            
+                            <div class="center-align">
+                                <button type="submit" class="btn waves-effect waves-light blue">Register</button>
+                                <div class="progress" id="register-progress">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="center-align auth-links">
+                            <p>Already have an account? <a href="login.html">Login</a></p>
+                            <p>By registering, you agree to our <a href="#">Terms of Service</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Firebase SDK (Version 10) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { 
+            getFirestore,
+            doc,
+            setDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTNPLG6frD1tyWX51ETQN-U11Vx1aUpYg",
+            authDomain: "resumecraft-ddf13.firebaseapp.com",
+            projectId: "resumecraft-ddf13",
+            storageBucket: "resumecraft-ddf13.appspot.com",
+            messagingSenderId: "699223165445",
+            appId: "1:699223165445:web:c9b2cd2838a3fa9b53ea6c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Form submission handler
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const progress = document.getElementById('register-progress');
+            
+            // Validation
+            if (password !== confirmPassword) {
+                M.toast({html: 'Passwords do not match', classes: 'red'});
+                return;
+            }
+            
+            progress.style.display = 'block';
+            
+            try {
+                // 1. Create user account
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // 2. Update user profile
+                await updateProfile(userCredential.user, { displayName: name });
+                
+                // 3. Save user data to Firestore
+                await setDoc(doc(db, "users", userCredential.user.uid), {
+                    name: name,
+                    email: email,
+                    createdAt: serverTimestamp(),
+                    lastLogin: serverTimestamp(),
+                    resumeCount: 0,
+                    plan: 'free'
+                });
+                
+                // Redirect
+                const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'dashboard.html';
+                window.location.href = redirectUrl;
+                
+            } catch (error) {
+                progress.style.display = 'none';
+                M.toast({html: error.message, classes: 'red'});
+                console.error("Registration error:", error);
+            }
+        });
+    </script>
+</body>
+</html>

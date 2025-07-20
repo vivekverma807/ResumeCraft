@@ -1,0 +1,201 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.tabs .indicator {
+    background-color: #2196F3;
+    height: 3px;
+}
+
+.tabs .tab a {
+    color: #2196F3;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    color: #0d8aee;
+}
+
+.card-panel {
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.input-field label {
+    color: #757575;
+}
+
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field input[type=tel]:focus + label,
+.input-field input[type=url]:focus + label,
+.input-field textarea:focus + label {
+    color: #2196F3;
+}
+
+.input-field input[type=text]:focus,
+.input-field input[type=email]:focus,
+.input-field input[type=tel]:focus,
+.input-field input[type=url]:focus,
+.input-field textarea:focus {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
+}
+
+[type="checkbox"]:checked + span:not(.lever):before {
+    border-right: 2px solid #2196F3;
+    border-bottom: 2px solid #2196F3;
+}
+
+.btn, .btn-large {
+    background-color: #2196F3;
+}
+
+.btn:hover, .btn-large:hover {
+    background-color: #1976D2;
+}
+
+.chips {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.chips.focus {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
+}
+
+.chips .chip.selected {
+    background-color: #2196F3;
+}
+
+.modal {
+    max-width: 90%;
+    width: 800px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.resume-preview {
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 1123px; /* A4 height */
+}
+
+/* Resume Template Styles */
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.resume-header h1 {
+    color: #2196F3;
+    margin: 0;
+    font-size: 32px;
+}
+
+.resume-header h2 {
+    color: #333;
+    margin: 5px 0 0 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.resume-contact {
+    text-align: right;
+}
+
+.resume-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.resume-section {
+    margin-bottom: 25px;
+}
+
+.resume-section h3 {
+    color: #2196F3;
+    border-bottom: 2px solid #2196F3;
+    padding-bottom: 5px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.resume-summary p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.experience-item, .education-item {
+    margin-bottom: 20px;
+}
+
+.experience-header, .education-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.experience-title, .education-degree {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.experience-company, .education-institution {
+    font-style: italic;
+}
+
+.experience-date, .education-date {
+    color: #666;
+}
+
+.experience-description ul {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background-color: #e3f2fd;
+    color: #1976D2;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.language-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.language-name {
+    font-weight: 500;
+}
+
+.language-proficiency {
+    color: #666;
+}
+
+@media only screen and (max-width: 600px) {
+    .resume-header {
+        flex-direction: column;
+    }
+    
+    .resume-contact {
+        text-align: left;
+        margin-top: 15px;
+    }
+    
+    .modal {
+        width: 95%;
+    }
+}
