@@ -4,43 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Builder | ResumeCraft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="styles/builder.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="./styles/builder.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container navbar-container">
-            <a href="index.html" class="navbar-brand">ResumeCraft</a>
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span><b>ResumeCraft</b></span>
+            </a>
             <div class="navbar-menu">
                 <a href="index.html" class="navbar-link">Home</a>
-                <div data-auth="logged-out">
-                    <a href="auth/login.html?redirect=builder.html" class="btn btn-outline">Login</a>
-                </div>
-                <div data-auth="logged-in" style="display: none;">
-                    <div class="user-dropdown">
-                        <button class="user-btn">
-                            <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar">
-                            <span id="username">User</span>
-                            <i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="dashboard.html" class="dropdown-item"><i class="mdi mdi-view-dashboard"></i> Dashboard</a>
-                            <a href="#" class="dropdown-item"><i class="mdi mdi-account"></i> Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" id="logout" class="dropdown-item"><i class="mdi mdi-logout"></i> Logout</a>
-                        </div>
+                <button id="preview-btn" class="btn btn-outline">
+                    <i class="mdi mdi-eye-outline"></i> Preview
+                </button>
+                <button id="save-btn" class="btn btn-primary">
+                    <i class="mdi mdi-content-save"></i> Save
+                </button>
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <img src="assets/images/default.jpg" alt="User" class="user-avatar">
+                        <span id="username">Account</span>
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item">
+                            <i class="mdi mdi-view-dashboard"></i> Dashboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logout" class="dropdown-item">
+                            <i class="mdi mdi-logout"></i> Logout
+                        </a>
                     </div>
                 </div>
-                <button id="preview-btn" class="btn btn-primary">
-                    <i class="mdi mdi-eye-outline btn-icon"></i> Preview
-                </button>
-                <button id="save-btn" class="btn btn-secondary" data-auth="logged-in" style="display: none;">
-                    <i class="mdi mdi-content-save btn-icon"></i> Save
-                </button>
             </div>
         </div>
     </nav>
@@ -53,61 +52,65 @@
             </div>
             
             <div class="builder-tabs">
-                <button class="tab-btn active" data-tab="personal">Personal</button>
-                <button class="tab-btn" data-tab="experience">Experience</button>
-                <button class="tab-btn" data-tab="education">Education</button>
-                <button class="tab-btn" data-tab="skills">Skills</button>
+                <button class="tab-btn active" data-tab="personal">
+                    <i class="mdi mdi-account"></i> Personal
+                </button>
+                <button class="tab-btn" data-tab="experience">
+                    <i class="mdi mdi-briefcase"></i> Experience
+                </button>
+                <button class="tab-btn" data-tab="education">
+                    <i class="mdi mdi-school"></i> Education
+                </button>
+                <button class="tab-btn" data-tab="skills">
+                    <i class="mdi mdi-tools"></i> Skills
+                </button>
             </div>
             
             <div class="tab-content">
                 <!-- Personal Information Section -->
                 <div id="personal" class="tab-pane active">
                     <div class="form-section">
-                        <h3 class="form-section-title">Personal Information</h3>
-                        <div class="form-row">
-                            <div class="form-col">
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-account-circle"></i> Personal Information
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
                                 <label for="full_name" class="form-label">Full Name</label>
                                 <input type="text" id="full_name" class="form-control" placeholder="John Doe">
                             </div>
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="job_title" class="form-label">Professional Title</label>
                                 <input type="text" id="job_title" class="form-control" placeholder="Software Engineer">
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" id="email" class="form-control" placeholder="john@example.com">
                             </div>
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="phone" class="form-label">Phone Number</label>
                                 <input type="tel" id="phone" class="form-control" placeholder="(123) 456-7890">
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" id="address" class="form-control" placeholder="City, Country">
                             </div>
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="linkedin" class="form-label">LinkedIn Profile</label>
                                 <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/yourprofile">
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
+                            <div class="form-group full-width">
                                 <label for="summary" class="form-label">Professional Summary</label>
                                 <textarea id="summary" class="form-control" rows="4" placeholder="Briefly describe your professional background and skills"></textarea>
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
+                            <div class="form-group">
                                 <label for="photo" class="form-label">Upload Photo (Optional)</label>
-                                <input type="file" id="photo" class="form-control" accept="image/*">
+                                <div class="file-upload">
+                                    <input type="file" id="photo" accept="image/*">
+                                    <label for="photo" class="file-upload-label">
+                                        <i class="mdi mdi-cloud-upload"></i> Choose File
+                                    </label>
+                                    <span class="file-name">No file chosen</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,45 +119,40 @@
                 <!-- Experience Section -->
                 <div id="experience" class="tab-pane">
                     <div class="form-section">
-                        <h3 class="form-section-title">Work Experience</h3>
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-briefcase-check"></i> Work Experience
+                        </h3>
                         <div id="experience-fields">
-                            <div class="experience-item">
-                                <div class="form-row">
-                                    <div class="form-col">
+                            <div class="dynamic-item experience-item">
+                                <div class="form-grid">
+                                    <div class="form-group">
                                         <label class="form-label">Job Title</label>
                                         <input type="text" class="form-control job-title" placeholder="Software Developer">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Company</label>
                                         <input type="text" class="form-control company" placeholder="Tech Company Inc.">
                                     </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Start Date</label>
                                         <input type="text" class="form-control start-date" placeholder="Month Year">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">End Date (Leave blank if current)</label>
                                         <input type="text" class="form-control end-date" placeholder="Month Year or Present">
                                     </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-col">
+                                    <div class="form-group full-width">
                                         <label class="form-label">Job Description</label>
                                         <textarea class="form-control description" rows="4" placeholder="Describe your responsibilities and achievements (bullet points work best)"></textarea>
+                                        <small class="hint">Use bullet points (start each line with • or -)</small>
                                     </div>
                                 </div>
-                                
-                                <button class="remove-item-btn">
+                                <button class="btn btn-danger remove-item-btn">
                                     <i class="mdi mdi-delete"></i> Remove Position
                                 </button>
                             </div>
                         </div>
-                        
-                        <button id="add-experience" class="add-item-btn">
+                        <button id="add-experience" class="btn btn-secondary add-item-btn">
                             <i class="mdi mdi-plus"></i> Add Another Position
                         </button>
                     </div>
@@ -163,38 +161,35 @@
                 <!-- Education Section -->
                 <div id="education" class="tab-pane">
                     <div class="form-section">
-                        <h3 class="form-section-title">Education</h3>
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-school"></i> Education
+                        </h3>
                         <div id="education-fields">
-                            <div class="education-item">
-                                <div class="form-row">
-                                    <div class="form-col">
+                            <div class="dynamic-item education-item">
+                                <div class="form-grid">
+                                    <div class="form-group">
                                         <label class="form-label">Degree/Certification</label>
                                         <input type="text" class="form-control degree" placeholder="Bachelor of Science in Computer Science">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Institution</label>
                                         <input type="text" class="form-control institution" placeholder="University Name">
                                     </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Graduation Date</label>
                                         <input type="text" class="form-control graduation-date" placeholder="Month Year">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">GPA (Optional)</label>
                                         <input type="text" class="form-control gpa" placeholder="3.8">
                                     </div>
                                 </div>
-                                
-                                <button class="remove-item-btn">
+                                <button class="btn btn-danger remove-item-btn">
                                     <i class="mdi mdi-delete"></i> Remove Education
                                 </button>
                             </div>
                         </div>
-                        
-                        <button id="add-education" class="add-item-btn">
+                        <button id="add-education" class="btn btn-secondary add-item-btn">
                             <i class="mdi mdi-plus"></i> Add Another Education
                         </button>
                     </div>
@@ -203,24 +198,28 @@
                 <!-- Skills Section -->
                 <div id="skills" class="tab-pane">
                     <div class="form-section">
-                        <h3 class="form-section-title">Skills</h3>
-                        <div class="form-row">
-                            <div class="form-col">
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-tools"></i> Skills
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
                                 <label class="form-label">Your Skills</label>
                                 <div id="skills-chips" class="chips-container"></div>
-                                <small>Type a skill and press enter to add it</small>
+                                <small class="hint">Type a skill and press enter to add it</small>
                             </div>
                         </div>
                         
-                        <h3 class="form-section-title">Languages</h3>
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-translate"></i> Languages
+                        </h3>
                         <div id="language-fields">
-                            <div class="language-item">
-                                <div class="form-row">
-                                    <div class="form-col">
+                            <div class="dynamic-item language-item">
+                                <div class="form-grid">
+                                    <div class="form-group">
                                         <label class="form-label">Language</label>
                                         <input type="text" class="form-control language" placeholder="English">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Proficiency Level</label>
                                         <select class="form-control proficiency">
                                             <option value="" disabled selected>Select Proficiency</option>
@@ -231,68 +230,68 @@
                                         </select>
                                     </div>
                                 </div>
-                                
-                                <button class="remove-item-btn">
+                                <button class="btn btn-danger remove-item-btn">
                                     <i class="mdi mdi-delete"></i> Remove Language
                                 </button>
                             </div>
                         </div>
-                        
-                        <button id="add-language" class="add-item-btn">
+                        <button id="add-language" class="btn btn-secondary add-item-btn">
                             <i class="mdi mdi-plus"></i> Add Another Language
                         </button>
                         
-                        <h3 class="form-section-title">Certifications (Optional)</h3>
+                        <h3 class="form-section-title">
+                            <i class="mdi mdi-certificate"></i> Certifications (Optional)
+                        </h3>
                         <div id="certification-fields">
-                            <div class="certification-item">
-                                <div class="form-row">
-                                    <div class="form-col">
+                            <div class="dynamic-item certification-item">
+                                <div class="form-grid">
+                                    <div class="form-group">
                                         <label class="form-label">Certification Name</label>
                                         <input type="text" class="form-control certification-name" placeholder="Certified Web Developer">
                                     </div>
-                                    <div class="form-col">
+                                    <div class="form-group">
                                         <label class="form-label">Date Obtained</label>
                                         <input type="text" class="form-control certification-date" placeholder="Month Year">
                                     </div>
                                 </div>
-                                
-                                <button class="remove-item-btn">
+                                <button class="btn btn-danger remove-item-btn">
                                     <i class="mdi mdi-delete"></i> Remove Certification
                                 </button>
                             </div>
                         </div>
-                        
-                        <button id="add-certification" class="add-item-btn">
+                        <button id="add-certification" class="btn btn-secondary add-item-btn">
                             <i class="mdi mdi-plus"></i> Add Another Certification
                         </button>
                     </div>
                 </div>
-            </div>
-            
-            <div class="action-buttons">
-                <button id="generate-resume" class="btn btn-primary">
-                    <i class="mdi mdi-file-download-outline btn-icon"></i> Generate Resume
-                </button>
             </div>
         </div>
     </main>
 
     <!-- Preview Modal -->
     <div id="preview-modal" class="modal">
-        <div class="modal-content">
-            <h2>Resume Preview</h2>
-            <div id="resume-preview" class="preview-container">
-                <!-- Resume content will be generated here -->
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Resume Preview</h2>
+                <button class="modal-close">
+                    <i class="mdi mdi-close"></i>
+                </button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-outline modal-close">Close</button>
-            <button id="download-pdf" class="btn btn-primary">
-                <i class="mdi mdi-file-pdf btn-icon"></i> Download PDF
-            </button>
-            <button id="download-doc" class="btn btn-secondary">
-                <i class="mdi mdi-file-word btn-icon"></i> Download DOC
-            </button>
+            <div class="modal-body">
+                <div id="resume-preview" class="preview-container">
+                    <!-- Resume content will be generated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Cancel</button>
+                <button id="download-pdf" class="btn btn-primary">
+                    <i class="mdi mdi-file-pdf"></i> Download PDF
+                </button>
+                <button id="download-doc" class="btn btn-secondary">
+                    <i class="mdi mdi-file-word"></i> Download DOC
+                </button>
+            </div>
         </div>
     </div>
 
@@ -300,50 +299,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
-            authDomain: "resumecraft-b08a2.firebaseapp.com",
-            projectId: "resumecraft-b08a2",
-            storageBucket: "resumecraft-b08a2.appspot.com",
-            messagingSenderId: "36659463133",
-            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
-            measurementId: "G-MX7R8V0GLT"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Update auth UI
-        onAuthStateChanged(auth, (user) => {
-            const loggedInElements = document.querySelectorAll('[data-auth="logged-in"]');
-            const loggedOutElements = document.querySelectorAll('[data-auth="logged-out"]');
-            
-            if (user) {
-                loggedInElements.forEach(el => el.style.display = 'block');
-                loggedOutElements.forEach(el => el.style.display = 'none');
-                document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
-            } else {
-                loggedInElements.forEach(el => el.style.display = 'none');
-                loggedOutElements.forEach(el => el.style.display = 'block');
-            }
-        });
-
-        // Logout functionality
-        document.getElementById('logout')?.addEventListener('click', () => {
-            signOut(auth).then(() => {
-                window.location.href = 'index.html';
-            });
-        });
-    </script>
-    <script src="scripts/builder.js"></script>
+    <script type="module" src="./scripts/firebase.js"></script>
+    <script type="module" src="./scripts/builder.js"></script>
 </body>
 </html>
