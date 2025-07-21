@@ -8,12 +8,13 @@
 
 .builder-tabs {
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid var(--light-gray);
   margin-bottom: 20px;
 }
 
 .tab-btn {
-  padding: 12px 20px;
+  padding: 12px 15px;
   background: none;
   border: none;
   cursor: pointer;
@@ -21,6 +22,7 @@
   color: var(--gray-color);
   position: relative;
   transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .tab-btn.active {
@@ -52,14 +54,13 @@
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  margin: 0 -10px;
 }
 
 .form-col {
-  flex: 1;
-  padding: 0 15px;
-  min-width: 250px;
-  margin-bottom: 20px;
+  flex: 1 1 100%;
+  padding: 0 10px;
+  margin-bottom: 15px;
 }
 
 .add-item-btn {
@@ -67,10 +68,11 @@
   align-items: center;
   background-color: var(--light-gray);
   color: var(--dark-color);
-  padding: 10px 15px;
+  padding: 8px 12px;
   border-radius: 6px;
   margin-top: 10px;
   transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .add-item-btn:hover {
@@ -96,28 +98,31 @@
 .preview-container {
   background-color: white;
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
 }
 
 .preview-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .preview-header h1 {
   color: var(--primary-color);
   margin-bottom: 5px;
+  font-size: 1.8rem;
 }
 
 .preview-header h2 {
   color: var(--dark-color);
   font-weight: 500;
   margin-bottom: 15px;
+  font-size: 1.2rem;
 }
 
 .preview-section {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .preview-section-title {
@@ -125,48 +130,108 @@
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
   margin-bottom: 15px;
+  font-size: 1.1rem;
 }
 
 .experience-item, .education-item {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .experience-header, .education-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 5px;
 }
 
 .experience-title, .education-degree {
   font-weight: 600;
+  font-size: 1rem;
 }
 
 .experience-company, .education-institution {
   font-style: italic;
+  font-size: 0.9rem;
 }
 
 .experience-date, .education-date {
   color: var(--gray-color);
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: 5px;
 }
 
 .skills-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .skill-tag {
   background-color: var(--light-gray);
-  padding: 5px 15px;
+  padding: 4px 12px;
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .action-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
   margin-top: 30px;
+}
+
+@media (min-width: 576px) {
+  .form-col {
+    flex: 1 1 50%;
+  }
+  
+  .tab-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+  
+  .preview-header h1 {
+    font-size: 2rem;
+  }
+  
+  .preview-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-col {
+    flex: 1 1 33.333%;
+  }
+  
+  .experience-date, .education-date {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  .preview-container {
+    padding: 30px;
+  }
+  
+  .action-buttons {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 992px) {
+  .form-col {
+    min-width: 250px;
+  }
+  
+  .preview-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .preview-header h2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media print {
@@ -176,10 +241,19 @@
   
   body {
     background-color: white;
+    font-size: 12pt;
   }
   
   .preview-container {
     box-shadow: none;
     padding: 0;
+  }
+  
+  .preview-header h1 {
+    font-size: 18pt;
+  }
+  
+  .preview-section {
+    margin-bottom: 15pt;
   }
 }

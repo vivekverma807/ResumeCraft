@@ -11,6 +11,10 @@
   --light-gray: #e9ecef;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
@@ -19,19 +23,22 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
 h6 { font-size: 1rem; }
 
 p {
@@ -53,16 +60,16 @@ a:hover {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .section {
-  padding: 80px 0;
+  padding: 60px 0;
 }
 
 .section-title {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .section-title h2 {
@@ -77,7 +84,7 @@ a:hover {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 60px;
   height: 3px;
   background: var(--primary-color);
 }
@@ -87,15 +94,17 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -106,7 +115,7 @@ a:hover {
 .btn-primary:hover {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -131,55 +140,56 @@ a:hover {
 }
 
 .btn-icon {
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 /* Cards */
 .card {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-  padding: 20px;
+  padding: 15px;
   border-bottom: 1px solid var(--light-gray);
 }
 
 .card-body {
-  padding: 20px;
+  padding: 15px;
 }
 
 .card-footer {
-  padding: 20px;
+  padding: 15px;
   border-top: 1px solid var(--light-gray);
 }
 
 /* Forms */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 600;
+  font-size: 14px;
 }
 
 .form-control {
   width: 100%;
-  padding: 12px 15px;
+  padding: 10px 12px;
   border: 1px solid var(--gray-color);
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 4px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -192,8 +202,8 @@ a:hover {
 /* Navigation */
 .navbar {
   background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -207,9 +217,18 @@ a:hover {
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--primary-color);
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dark-color);
 }
 
 .navbar-menu {
@@ -218,13 +237,14 @@ a:hover {
 }
 
 .navbar-item {
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .navbar-link {
   font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .navbar-link:hover {
@@ -239,28 +259,30 @@ a:hover {
 .hero {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
-  padding: 150px 0 100px;
+  padding: 120px 0 80px;
   text-align: center;
 }
 
 .hero-title {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 30px;
-  max-width: 700px;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 15px;
 }
 
 .hero-buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 /* Features Section */
@@ -270,92 +292,173 @@ a:hover {
 
 .feature-card {
   text-align: center;
-  padding: 30px;
+  padding: 20px;
 }
 
 .feature-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--primary-color);
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 /* Dashboard */
 .dashboard {
-  padding-top: 80px;
+  padding-top: 70px;
 }
 
 .sidebar {
   background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
 }
 
 .user-profile {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .user-avatar {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--primary-color);
-  margin-bottom: 15px;
+  border: 2px solid var(--primary-color);
+  margin-bottom: 10px;
 }
 
 .profile-stats {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
+  gap: 10px;
 }
 
 .stat-card {
   text-align: center;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 15px;
+  border-radius: 6px;
   background-color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  flex: 1 1 100px;
 }
 
 .stat-icon {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
   color: var(--primary-color);
 }
 
-/* Resume Builder */
-.builder-container {
-  padding-top: 80px;
-}
-
-.builder-tabs {
-  margin-bottom: 30px;
-}
-
-.tab-content {
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive Breakpoints */
+@media (max-width: 767px) {
+  .navbar-toggle {
+    display: block;
+  }
+  
   .navbar-menu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    flex-direction: column;
+    padding: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-menu.active {
+    display: flex;
+  }
+  
+  .navbar-item {
+    margin: 5px 0;
+    width: 100%;
+  }
+  
+  .navbar-link {
+    display: block;
+    padding: 10px;
+  }
+  
+  .hero {
+    padding: 100px 0 60px;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .section {
+    padding: 40px 0;
+  }
+  
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 2.3rem; }
+  h2 { font-size: 1.9rem; }
+  h3 { font-size: 1.6rem; }
+  
+  .hero {
+    padding: 140px 0 90px;
   }
   
   .hero-title {
     font-size: 2.5rem;
   }
   
-  .hero-buttons {
-    flex-direction: column;
+  .hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
   }
   
   .section {
-    padding: 60px 0;
+    padding: 70px 0;
+  }
+  
+  .profile-stats {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 992px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  
+  .hero {
+    padding: 160px 0 100px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .section {
+    padding: 80px 0;
+  }
+  
+  .user-avatar {
+    width: 100px;
+    height: 100px;
   }
 }
