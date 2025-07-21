@@ -6,76 +6,70 @@
     <title>ResumeCraft - Build Your Perfect Resume</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header>
-        <nav class="nav-wrapper blue darken-2">
-            <div class="container">
-                <a href="index.html" class="brand-logo">ResumeCraft</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#templates">Templates</a></li>
-                    <li data-auth="logged-out"><a href="auth/login.html" class="btn waves-effect waves-light blue lighten-1">Login</a></li>
-                    <li data-auth="logged-in"><a href="dashboard.html" class="btn waves-effect waves-light blue lighten-1"><i class="mdi mdi-account-circle left"></i>Dashboard</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">Build Resume</a></li>
-                </ul>
-                <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                    <i class="mdi mdi-menu"></i>
-                </a>
-                <ul class="sidenav" id="mobile-menu">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#templates">Templates</a></li>
-                    <li data-auth="logged-out"><a href="auth/login.html">Login</a></li>
-                    <li data-auth="logged-in"><a href="dashboard.html"><i class="mdi mdi-account-circle left"></i>Dashboard</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">Build Resume</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-        <div class="hero valign-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12 m7">
-                        <h1>Craft Your Perfect Resume in Minutes</h1>
-                        <p class="flow-text">Stand out from the crowd with a professionally designed resume tailored to your career goals.</p>
-                        <div class="hero-buttons">
-                            <a href="builder.html" class="btn-large waves-effect waves-light blue">Get Started - It's Free</a>
-                            <a href="#templates" class="btn-large waves-effect waves-light white blue-text text-darken-2">View Templates</a>
-                        </div>
-                    </div>
-                    <div class="col s12 m5 hide-on-small-only">
-                        <img src="assets/images/hero-resume.png" alt="Resume Example" class="responsive-img hero-image">
-                    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">ResumeCraft</a>
+            <div class="navbar-menu">
+                <a href="#features" class="navbar-link">Features</a>
+                <a href="#templates" class="navbar-link">Templates</a>
+                <a href="#testimonials" class="navbar-link">Testimonials</a>
+                <div data-auth="logged-out">
+                    <a href="auth/login.html" class="btn btn-outline">Login</a>
+                </div>
+                <div data-auth="logged-in" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <section id="features" class="section scrollspy">
+    <!-- Hero Section -->
+    <section class="hero animate__animated animate__fadeIn">
         <div class="container">
-            <h2 class="center-align">Why Choose ResumeCraft?</h2>
-            <p class="center-align flow-text">Everything you need to create the perfect resume for your dream job</p>
+            <h1 class="hero-title">Craft Your Perfect Resume in Minutes</h1>
+            <p class="hero-subtitle">Stand out from the crowd with a professionally designed resume tailored to your career goals.</p>
+            <div class="hero-buttons">
+                <a href="builder.html" class="btn btn-primary">
+                    <i class="mdi mdi-file-document-outline btn-icon"></i> Get Started - It's Free
+                </a>
+                <a href="#templates" class="btn btn-outline" style="color: white; border-color: white;">
+                    View Templates
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose ResumeCraft?</h2>
+                <p>Everything you need to create the perfect resume for your dream job</p>
+            </div>
             
             <div class="row">
                 <div class="col s12 m4">
-                    <div class="card-panel hoverable center-align">
-                        <i class="mdi mdi-format-list-checks large blue-text text-darken-2"></i>
+                    <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                        <i class="mdi mdi-format-list-checks feature-icon"></i>
                         <h5>ATS-Optimized</h5>
                         <p>Our templates are designed to pass through Applicant Tracking Systems used by 99% of Fortune 500 companies.</p>
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    <div class="card-panel hoverable center-align">
-                        <i class="mdi mdi-palette large blue-text text-darken-2"></i>
+                    <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        <i class="mdi mdi-palette feature-icon"></i>
                         <h5>Custom Designs</h5>
                         <p>Choose from multiple professionally designed templates and customize colors, fonts, and layouts.</p>
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    <div class="card-panel hoverable center-align">
-                        <i class="mdi mdi-cloud-upload large blue-text text-darken-2"></i>
+                    <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                        <i class="mdi mdi-cloud-upload feature-icon"></i>
                         <h5>Cloud Storage</h5>
                         <p>Save unlimited resumes to your account and access them anytime from any device.</p>
                     </div>
@@ -84,68 +78,56 @@
         </div>
     </section>
 
-    <section id="templates" class="section scrollspy grey lighten-4">
+    <!-- Templates Section -->
+    <section id="templates" class="section" style="background-color: #f8f9fa;">
         <div class="container">
-            <h2 class="center-align">Professional Resume Templates</h2>
-            <p class="center-align flow-text">Choose from our collection of ATS-friendly templates</p>
+            <div class="section-title">
+                <h2>Professional Resume Templates</h2>
+                <p>Choose from our collection of ATS-friendly templates</p>
+            </div>
             
             <div class="row">
                 <div class="col s12 m4">
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img src="assets/images/template1.jpg" alt="Classic Template" class="activator">
+                    <div class="card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                        <div class="card-image">
+                            <img src="assets/images/template1.jpg" alt="Classic Template">
                         </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Classic<i class="mdi mdi-dots-vertical right"></i></span>
+                        <div class="card-body">
+                            <h5>Classic</h5>
                             <p>Perfect for traditional industries</p>
-                            <div class="card-action">
-                                <a href="builder.html?template=classic" class="blue-text">Use Template</a>
-                                <a href="#" class="blue-text right activator">Preview</a>
-                            </div>
                         </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Classic Template<i class="mdi mdi-close right"></i></span>
-                            <p>This clean, professional design is perfect for industries like finance, law, and government where traditional formats are preferred.</p>
+                        <div class="card-footer">
+                            <a href="builder.html?template=classic" class="btn btn-primary">Use Template</a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col s12 m4">
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img src="assets/images/template2.jpg" alt="Modern Template" class="activator">
+                    <div class="card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        <div class="card-image">
+                            <img src="assets/images/template2.jpg" alt="Modern Template">
                         </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Modern<i class="mdi mdi-dots-vertical right"></i></span>
+                        <div class="card-body">
+                            <h5>Modern</h5>
                             <p>Great for creative professionals</p>
-                            <div class="card-action">
-                                <a href="builder.html?template=modern" class="blue-text">Use Template</a>
-                                <a href="#" class="blue-text right activator">Preview</a>
-                            </div>
                         </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Modern Template<i class="mdi mdi-close right"></i></span>
-                            <p>This contemporary design features subtle design elements that make your resume stand out while remaining professional.</p>
+                        <div class="card-footer">
+                            <a href="builder.html?template=modern" class="btn btn-primary">Use Template</a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col s12 m4">
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img src="assets/images/template3.jpg" alt="Executive Template" class="activator">
+                    <div class="card animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                        <div class="card-image">
+                            <img src="assets/images/template3.jpg" alt="Executive Template">
                         </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Executive<i class="mdi mdi-dots-vertical right"></i></span>
+                        <div class="card-body">
+                            <h5>Executive</h5>
                             <p>Designed for senior professionals</p>
-                            <div class="card-action">
-                                <a href="builder.html?template=executive" class="blue-text">Use Template</a>
-                                <a href="#" class="blue-text right activator">Preview</a>
-                            </div>
                         </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Executive Template<i class="mdi mdi-close right"></i></span>
-                            <p>This sophisticated layout is designed for executives and senior professionals with a clean, authoritative design.</p>
+                        <div class="card-footer">
+                            <a href="builder.html?template=executive" class="btn btn-primary">Use Template</a>
                         </div>
                     </div>
                 </div>
@@ -153,79 +135,52 @@
         </div>
     </section>
 
-    <section id="testimonials" class="section scrollspy">
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
         <div class="container">
-            <h2 class="center-align">Trusted by Professionals Worldwide</h2>
-            <p class="center-align flow-text">Join thousands of satisfied users who landed their dream jobs</p>
+            <div class="section-title">
+                <h2>Trusted by Professionals Worldwide</h2>
+                <p>Join thousands of satisfied users who landed their dream jobs</p>
+            </div>
             
-            <div class="carousel carousel-slider center">
-                <div class="carousel-item white-text" href="#one!">
-                    <div class="card-panel blue darken-2" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col s12 m4">
-                                <img src="assets/images/user1.jpg" alt="Sarah J." class="circle responsive-img testimonial-img">
-                            </div>
-                            <div class="col s12 m8">
-                                <p class="flow-text"><i class="mdi mdi-format-quote-open"></i> ResumeCraft helped me create a professional resume that got me interviews at top tech companies. The ATS optimization feature was a game-changer! <i class="mdi mdi-format-quote-close"></i></p>
-                                <div class="testimonial-author">
-                                    <h5>Sarah J.</h5>
-                                    <p>Senior Software Engineer at Google</p>
-                                </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <div class="testimonial-avatar">
+                            <img src="assets/images/user1.jpg" alt="Sarah J.">
+                        </div>
+                        <div class="testimonial-text">
+                            <p>"ResumeCraft helped me create a professional resume that got me interviews at top tech companies. The ATS optimization feature was a game-changer!"</p>
+                            <div class="testimonial-author">
+                                <h5>Sarah J.</h5>
+                                <p>Senior Software Engineer at Google</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item white-text" href="#two!">
-                    <div class="card-panel blue darken-2" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col s12 m4">
-                                <img src="assets/images/user2.jpg" alt="Michael T." class="circle responsive-img testimonial-img">
-                            </div>
-                            <div class="col s12 m8">
-                                <p class="flow-text"><i class="mdi mdi-format-quote-open"></i> As a recent graduate, I didn't know how to make my resume stand out. ResumeCraft's guided builder made it easy. I got 3 job offers! <i class="mdi mdi-format-quote-close"></i></p>
-                                <div class="testimonial-author">
-                                    <h5>Michael T.</h5>
-                                    <p>Marketing Associate at Spotify</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item white-text" href="#three!">
-                    <div class="card-panel blue darken-2" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col s12 m4">
-                                <img src="assets/images/user3.jpg" alt="Lisa M." class="circle responsive-img testimonial-img">
-                            </div>
-                            <div class="col s12 m8">
-                                <p class="flow-text"><i class="mdi mdi-format-quote-open"></i> I was struggling with my career change resume. ResumeCraft's transferable skills analyzer helped me transition seamlessly. <i class="mdi mdi-format-quote-close"></i></p>
-                                <div class="testimonial-author">
-                                    <h5>Lisa M.</h5>
-                                    <p>Corporate Trainer at Microsoft</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                <!-- More testimonials would go here -->
             </div>
         </div>
     </section>
 
-    <section class="section blue darken-2 white-text">
+    <!-- Call to Action -->
+    <section class="section" style="background-color: var(--primary-color); color: white;">
         <div class="container">
             <div class="row">
                 <div class="col s12 m8">
-                    <h4>Ready to Build Your Perfect Resume?</h4>
+                    <h3>Ready to Build Your Perfect Resume?</h3>
                     <p class="flow-text">Join over 500,000 professionals who found their dream jobs with ResumeCraft</p>
                 </div>
-                <div class="col s12 m4 center-align" style="margin-top: 30px;">
-                    <a href="builder.html" class="btn-large waves-effect waves-light white blue-text text-darken-2">Start Building Now</a>
+                <div class="col s12 m4" style="display: flex; align-items: center; justify-content: center;">
+                    <a href="builder.html" class="btn btn-outline" style="color: white; border-color: white;">Start Building Now</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="page-footer blue darken-3">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col s12 m4">
@@ -264,7 +219,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright blue darken-4">
+        <div class="footer-copyright">
             <div class="container">
                 © 2025 ResumeCraft. All rights reserved.
             </div>
@@ -272,10 +227,43 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="scripts/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // Update auth UI
+        onAuthStateChanged(auth, (user) => {
+            const loggedInElements = document.querySelectorAll('[data-auth="logged-in"]');
+            const loggedOutElements = document.querySelectorAll('[data-auth="logged-out"]');
+            
+            if (user) {
+                loggedInElements.forEach(el => el.style.display = 'block');
+                loggedOutElements.forEach(el => el.style.display = 'none');
+            } else {
+                loggedInElements.forEach(el => el.style.display = 'none');
+                loggedOutElements.forEach(el => el.style.display = 'block');
+            }
+        });
+    </script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

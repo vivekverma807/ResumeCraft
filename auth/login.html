@@ -5,93 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | ResumeCraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <style>
         .auth-container {
-            padding: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: #f8f9fa;
         }
-        .auth-container .card {
-            border-radius: 8px;
+        
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            animation: fadeInUp 0.5s;
         }
-        .auth-links {
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .auth-body {
+            padding: 30px;
+        }
+        
+        .auth-footer {
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .auth-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .auth-subtitle {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-actions {
+            margin-top: 30px;
+        }
+        
+        .auth-link {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .divider-text {
+            padding: 0 10px;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
             margin-top: 20px;
         }
-        .progress {
-            display: none;
-            margin-top: 20px;
+        
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--light-gray);
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            background: var(--light-gray);
+        }
+        
+        .social-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .google-btn {
+            color: #DB4437;
+        }
+        
+        .github-btn {
+            color: var(--dark-color);
         }
     </style>
 </head>
 <body>
     <div class="auth-container">
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title center-align">Login to ResumeCraft</span>
-                        
-                        <form id="login-form">
-                            <div class="input-field">
-                                <input id="email" type="email" class="validate" required>
-                                <label for="email">Email</label>
-                            </div>
-                            
-                            <div class="input-field">
-                                <input id="password" type="password" class="validate" required>
-                                <label for="password">Password</label>
-                            </div>
-                            
-                            <div class="center-align">
-                                <button type="submit" class="btn waves-effect waves-light blue">Login</button>
-                                <div class="progress" id="login-progress">
-                                    <div class="indeterminate"></div>
-                                </div>
-                            </div>
-                        </form>
-                        
-                        <div class="center-align auth-links">
-                            <p>Don't have an account? <a href="register.html">Register</a></p>
-                            <p><a href="forgot-password.html">Forgot password?</a></p>
+        <div class="auth-card animate__animated animate__fadeInUp">
+            <div class="auth-header">
+                <div class="auth-logo">ResumeCraft</div>
+                <h2 class="auth-title">Welcome Back</h2>
+                <p class="auth-subtitle">Login to access your resumes</p>
+            </div>
+            
+            <div class="auth-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        <div class="text-right" style="margin-top: 8px;">
+                            <a href="forgot-password.html" class="auth-link">Forgot password?</a>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="remember" class="form-check-input">
+                            <label for="remember" class="form-check-label">Remember me</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="mdi mdi-login btn-icon"></i> Login
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="divider">
+                    <span class="divider-text">OR</span>
                 </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="mdi mdi-google social-icon"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn github-btn">
+                        <i class="mdi mdi-github social-icon"></i>
+                        GitHub
+                    </button>
+                </div>
+            </div>
+            
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html" class="auth-link">Register here</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    <!-- Firebase SDK (Version 10) -->
     <script type="module">
+        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { 
             getAuth, 
-            signInWithEmailAndPassword
+            signInWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+            GithubAuthProvider
         } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-        import { 
-            getFirestore,
-            doc,
-            updateDoc,
-            serverTimestamp
-        } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyDTNPLG6frD1tyWX51ETQN-U11Vx1aUpYg",
-            authDomain: "resumecraft-ddf13.firebaseapp.com",
-            projectId: "resumecraft-ddf13",
-            storageBucket: "resumecraft-ddf13.appspot.com",
-            messagingSenderId: "699223165445",
-            appId: "1:699223165445:web:c9b2cd2838a3fa9b53ea6c"
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+        const githubProvider = new GithubAuthProvider();
 
         // Form submission handler
         document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -99,30 +227,80 @@
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const progress = document.getElementById('login-progress');
+            const submitBtn = document.querySelector('#login-form button[type="submit"]');
             
-            progress.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin btn-icon"></i> Logging in...';
             
             try {
-                // 1. Sign in user
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // Sign in user
+                await signInWithEmailAndPassword(auth, email, password);
                 
-                // 2. Update last login time in Firestore
-                await updateDoc(doc(db, "users", userCredential.user.uid), {
-                    lastLogin: serverTimestamp()
-                });
-                
-                // 3. Redirect
+                // Redirect
                 const urlParams = new URLSearchParams(window.location.search);
-                const redirectUrl = urlParams.get('redirect') || 'dashboard.html';
+                const redirectUrl = urlParams.get('redirect') || '../dashboard.html';
                 window.location.href = redirectUrl;
                 
             } catch (error) {
-                progress.style.display = 'none';
-                M.toast({html: error.message, classes: 'red'});
-                console.error("Login error:", error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="mdi mdi-login btn-icon"></i> Login';
+                
+                let errorMessage = 'Login failed. Please try again.';
+                switch(error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No user found with this email.';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password. Please try again.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Please enter a valid email address.';
+                        break;
+                }
+                
+                Swal.fire({
+                    title: 'Error',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+            }
+        });
+
+        // Google login
+        document.querySelector('.google-btn').addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, googleProvider);
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirectUrl = urlParams.get('redirect') || '../dashboard.html';
+                window.location.href = redirectUrl;
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Google login failed. Please try again.',
+                    icon: 'error',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+            }
+        });
+
+        // GitHub login
+        document.querySelector('.github-btn').addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, githubProvider);
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirectUrl = urlParams.get('redirect') || '../dashboard.html';
+                window.location.href = redirectUrl;
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'GitHub login failed. Please try again.',
+                    icon: 'error',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

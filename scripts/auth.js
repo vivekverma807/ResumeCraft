@@ -1,21 +1,19 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+    authDomain: "resumecraft-b08a2.firebaseapp.com",
+    projectId: "resumecraft-b08a2",
+    storageBucket: "resumecraft-b08a2.appspot.com",
+    messagingSenderId: "36659463133",
+    appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+    measurementId: "G-MX7R8V0GLT"
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-
-// DOM Elements
-let logoutBtn = document.getElementById('logout');
-let logoutMobileBtn = document.getElementById('logout-mobile');
+const analytics = firebase.analytics();
 
 // Auth State Listener
 auth.onAuthStateChanged(user => {
@@ -53,13 +51,13 @@ function updateAuthUI(user) {
     authElements.forEach(el => {
         if (user) {
             if (el.dataset.auth === 'logged-in') {
-                el.style.display = '';
+                el.style.display = 'block';
             } else {
                 el.style.display = 'none';
             }
         } else {
             if (el.dataset.auth === 'logged-out') {
-                el.style.display = '';
+                el.style.display = 'block';
             } else {
                 el.style.display = 'none';
             }
@@ -77,14 +75,9 @@ function updateAuthUI(user) {
         if (document.getElementById('user-greeting')) {
             document.getElementById('user-greeting').textContent = user.displayName || user.email.split('@')[0];
         }
-    }
-    
-    // Initialize dropdown if user is logged in
-    if (user) {
-        const dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
-        });
+        if (document.getElementById('username')) {
+            document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
+        }
     }
 }
 
@@ -117,6 +110,17 @@ function loadDashboardData(user) {
             
             if (document.getElementById('resume-count')) {
                 document.getElementById('resume-count').textContent = userData.resumeCount || 0;
+                document.getElementById('resume-count-main').textContent = userData.resumeCount || 0;
+            }
+            if (document.getElementById('download-count')) {
+                document.getElementById('download-count').textContent = userData.downloadCount || 0;
+                document.getElementById('download-count-main').textContent = userData.downloadCount || 0;
+            }
+            if (document.getElementById('applications-count')) {
+                document.getElementById('applications-count').textContent = userData.applicationsCount || 0;
+            }
+            if (document.getElementById('favorites-count')) {
+                document.getElementById('favorites-count').textContent = userData.favoritesCount || 0;
             }
         }
     });
@@ -129,12 +133,14 @@ function loadDashboardData(user) {
         .get()
         .then(querySnapshot => {
             const resumesTable = document.getElementById('resumes-table');
+            if (!resumesTable) return;
+            
             resumesTable.innerHTML = '';
             
             if (querySnapshot.empty) {
                 resumesTable.innerHTML = `
                     <tr>
-                        <td colspan="4" class="center-align">No resumes found. <a href="builder.html">Create your first resume</a></td>
+                        <td colspan="4" class="empty-table">No resumes found. <a href="builder.html">Create your first resume</a></td>
                     </tr>
                 `;
                 return;
@@ -147,15 +153,15 @@ function loadDashboardData(user) {
                 row.innerHTML = `
                     <td>${resume.name || 'Untitled Resume'}</td>
                     <td>${resume.template || 'Classic'}</td>
-                    <td>${new Date(resume.lastUpdated?.toDate()).toLocaleDateString()}</td>
-                    <td>
-                        <a href="builder.html?resumeId=${doc.id}" class="btn-small waves-effect waves-light blue">
+                    <td>${formatDate(resume.lastUpdated?.toDate())}</td>
+                    <td class="actions">
+                        <a href="builder.html?resumeId=${doc.id}" class="btn btn-icon">
                             <i class="mdi mdi-pencil"></i>
                         </a>
-                        <a href="#!" class="btn-small waves-effect waves-light green download-resume" data-id="${doc.id}">
+                        <a href="#!" class="btn btn-icon download-resume" data-id="${doc.id}">
                             <i class="mdi mdi-download"></i>
                         </a>
-                        <a href="#!" class="btn-small waves-effect waves-light red delete-resume" data-id="${doc.id}">
+                        <a href="#!" class="btn btn-icon delete-resume" data-id="${doc.id}">
                             <i class="mdi mdi-delete"></i>
                         </a>
                     </td>
@@ -181,6 +187,19 @@ function loadDashboardData(user) {
                 });
             });
         });
+}
+
+function formatDate(date) {
+    if (!date) return 'N/A';
+    
+    const now = new Date();
+    const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+    
+    if (diffInDays === 0) return 'Today';
+    if (diffInDays === 1) return 'Yesterday';
+    if (diffInDays < 7) return `${diffInDays} days ago`;
+    
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 function loadResumeData(userId, resumeId) {
@@ -226,13 +245,112 @@ function populateForm(resumeData) {
         });
     }
     
-    // Similar implementation for education, skills, etc.
+    // Education
+    if (resumeData.education && resumeData.education.length > 0) {
+        const eduContainer = document.getElementById('education-fields');
+        eduContainer.innerHTML = '';
+        
+        resumeData.education.forEach((edu, index) => {
+            const eduItem = document.querySelector('.education-item').cloneNode(true);
+            
+            if (index === 0) {
+                eduItem.querySelector('.remove-education').style.display = 'none';
+            }
+            
+            eduItem.querySelector('.degree').value = edu.degree || '';
+            eduItem.querySelector('.institution').value = edu.institution || '';
+            eduItem.querySelector('.graduation-date').value = edu.graduationDate || '';
+            eduItem.querySelector('.gpa').value = edu.gpa || '';
+            
+            eduContainer.appendChild(eduItem);
+        });
+    }
+    
+    // Skills
+    if (resumeData.skills && resumeData.skills.length > 0) {
+        const chipInstance = M.Chips.getInstance(document.getElementById('skills-chips'));
+        if (chipInstance) {
+            resumeData.skills.forEach(skill => {
+                chipInstance.addChip({ tag: skill });
+            });
+        }
+    }
+    
+    // Languages
+    if (resumeData.languages && resumeData.languages.length > 0) {
+        const langContainer = document.getElementById('language-fields');
+        langContainer.innerHTML = '';
+        
+        resumeData.languages.forEach((lang, index) => {
+            const langItem = document.querySelector('.language-item').cloneNode(true);
+            
+            if (index === 0) {
+                langItem.querySelector('.remove-language').style.display = 'none';
+            }
+            
+            langItem.querySelector('.language').value = lang.language || '';
+            langItem.querySelector('.proficiency').value = lang.proficiency || '';
+            
+            langContainer.appendChild(langItem);
+        });
+    }
+    
+    // Certifications
+    if (resumeData.certifications && resumeData.certifications.length > 0) {
+        const certContainer = document.getElementById('certification-fields');
+        certContainer.innerHTML = '';
+        
+        resumeData.certifications.forEach((cert, index) => {
+            const certItem = document.querySelector('.certification-item').cloneNode(true);
+            
+            if (index === 0) {
+                certItem.querySelector('.remove-certification').style.display = 'none';
+            }
+            
+            certItem.querySelector('.certification-name').value = cert.certificationName || '';
+            certItem.querySelector('.certification-date').value = cert.certificationDate || '';
+            
+            certContainer.appendChild(certItem);
+        });
+    }
 }
 
 function downloadResume(resumeId) {
-    // This would be implemented in pdf-export.js
-    console.log('Downloading resume:', resumeId);
-    M.toast({html: 'Preparing resume download...', classes: 'green'});
+    Swal.fire({
+        title: 'Preparing Download',
+        html: 'Your resume is being prepared for download',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    }).then(() => {
+        // In a real implementation, this would generate and download the resume
+        console.log('Downloading resume:', resumeId);
+        
+        // Record download activity
+        const user = auth.currentUser;
+        if (user) {
+            db.collection('resumes').doc(resumeId).get().then(doc => {
+                if (doc.exists) {
+                    const resume = doc.data();
+                    
+                    db.collection('activity').add({
+                        userId: user.uid,
+                        type: 'resume_downloaded',
+                        resumeName: resume.name,
+                        format: 'PDF',
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    // Update download count
+                    db.collection('users').doc(user.uid).update({
+                        downloadCount: firebase.firestore.FieldValue.increment(1)
+                    });
+                }
+            });
+        }
+    });
 }
 
 function deleteResume(resumeId) {
@@ -246,54 +364,54 @@ function deleteResume(resumeId) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            db.collection('resumes').doc(resumeId).delete().then(() => {
-                // Update resume count
-                db.collection('users').doc(auth.currentUser.uid).update({
-                    resumeCount: firebase.firestore.FieldValue.increment(-1)
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            db.collection('resumes').doc(resumeId).delete()
+                .then(() => {
+                    // Update resume count
+                    db.collection('users').doc(user.uid).update({
+                        resumeCount: firebase.firestore.FieldValue.increment(-1)
+                    });
+                    
+                    // Record activity
+                    db.collection('activity').add({
+                        userId: user.uid,
+                        type: 'resume_deleted',
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    // Reload dashboard
+                    loadDashboardData(user);
+                    
+                    Swal.fire(
+                        'Deleted!',
+                        'Your resume has been deleted.',
+                        'success'
+                    );
+                })
+                .catch(error => {
+                    Swal.fire(
+                        'Error!',
+                        'There was a problem deleting your resume.',
+                        'error'
+                    );
+                    console.error('Error deleting resume:', error);
                 });
-                
-                // Reload dashboard
-                loadDashboardData(auth.currentUser);
-                
-                Swal.fire(
-                    'Deleted!',
-                    'Your resume has been deleted.',
-                    'success'
-                );
-            }).catch(error => {
-                Swal.fire(
-                    'Error!',
-                    'There was a problem deleting your resume.',
-                    'error'
-                );
-            });
         }
     });
 }
 
 // Logout functionality
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        auth.signOut().then(() => {
-            window.location.href = '../index.html';
-        });
+document.getElementById('logout')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        window.location.href = '../index.html';
     });
-}
+});
 
-if (logoutMobileBtn) {
-    logoutMobileBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        auth.signOut().then(() => {
-            window.location.href = '../index.html';
-        });
-    });
-}
-
-// Initialize Materialize components
+// Initialize Materialize components when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    M.AutoInit();
-    
     // Initialize sidenav
     const sidenavs = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenavs);
@@ -355,6 +473,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 limit: 20,
                 minLength: 1
             }
+        });
+    }
+    
+    // Initialize dropdowns
+    const dropdowns = document.querySelectorAll('.dropdown-trigger');
+    if (dropdowns.length > 0) {
+        M.Dropdown.init(dropdowns, {
+            coverTrigger: false
         });
     }
 });

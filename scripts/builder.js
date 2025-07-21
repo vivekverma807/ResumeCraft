@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Materialize components
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
-    M.Tabs.init(document.querySelectorAll('.tabs'));
     M.Datepicker.init(document.querySelectorAll('.datepicker'), {
         format: 'mmmm yyyy',
         autoClose: true
     });
     M.FormSelect.init(document.querySelectorAll('select'));
     M.Modal.init(document.querySelectorAll('.modal'));
+    
+    // Initialize chips
     M.Chips.init(document.querySelectorAll('.chips'), {
         placeholder: 'Add a skill',
         secondaryPlaceholder: '+Skill',
@@ -51,11 +52,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Tab functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons and panes
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding pane
+            this.classList.add('active');
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+    
     // Check URL for template parameter
     const urlParams = new URLSearchParams(window.location.search);
     const template = urlParams.get('template');
     if (template) {
-        M.toast({html: `Using ${template} template`, classes: 'blue'});
+        Swal.fire({
+            title: 'Template Selected',
+            text: `You're using the ${template} template`,
+            icon: 'info',
+            confirmButtonColor: '#4361ee'
+        });
     }
     
     // Add experience field
@@ -72,11 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Remove experience field
     document.getElementById('experience-fields').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-experience')) {
+        if (e.target.classList.contains('remove-item-btn')) {
             if (document.querySelectorAll('.experience-item').length > 1) {
                 e.target.closest('.experience-item').remove();
             } else {
-                M.toast({html: 'You need at least one work experience', classes: 'orange'});
+                Swal.fire({
+                    title: 'Cannot Remove',
+                    text: 'You need at least one work experience',
+                    icon: 'warning',
+                    confirmButtonColor: '#4361ee'
+                });
             }
         }
     });
@@ -95,11 +123,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Remove education field
     document.getElementById('education-fields').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-education')) {
+        if (e.target.classList.contains('remove-item-btn')) {
             if (document.querySelectorAll('.education-item').length > 1) {
                 e.target.closest('.education-item').remove();
             } else {
-                M.toast({html: 'You need at least one education entry', classes: 'orange'});
+                Swal.fire({
+                    title: 'Cannot Remove',
+                    text: 'You need at least one education entry',
+                    icon: 'warning',
+                    confirmButtonColor: '#4361ee'
+                });
             }
         }
     });
@@ -115,11 +148,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Remove language field
     document.getElementById('language-fields').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-language')) {
+        if (e.target.classList.contains('remove-item-btn')) {
             if (document.querySelectorAll('.language-item').length > 1) {
                 e.target.closest('.language-item').remove();
             } else {
-                M.toast({html: 'You need at least one language entry', classes: 'orange'});
+                Swal.fire({
+                    title: 'Cannot Remove',
+                    text: 'You need at least one language entry',
+                    icon: 'warning',
+                    confirmButtonColor: '#4361ee'
+                });
             }
         }
     });
@@ -138,34 +176,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Remove certification field
     document.getElementById('certification-fields').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-certification')) {
+        if (e.target.classList.contains('remove-item-btn')) {
             if (document.querySelectorAll('.certification-item').length > 1) {
                 e.target.closest('.certification-item').remove();
             } else {
-                M.toast({html: 'You need at least one certification entry', classes: 'orange'});
+                Swal.fire({
+                    title: 'Cannot Remove',
+                    text: 'You need at least one certification entry',
+                    icon: 'warning',
+                    confirmButtonColor: '#4361ee'
+                });
             }
         }
     });
     
     // Preview button click
-    document.querySelector('.preview-btn').addEventListener('click', function() {
+    document.getElementById('preview-btn').addEventListener('click', function() {
         generateResumePreview();
         const modal = M.Modal.getInstance(document.getElementById('preview-modal'));
         modal.open();
     });
     
-    // Generate PDF button
-    document.querySelector('.generate-pdf').addEventListener('click', function() {
+    // Download PDF button
+    document.getElementById('download-pdf').addEventListener('click', function() {
         generatePDF();
     });
     
-    // Generate DOC button
-    document.querySelector('.generate-doc').addEventListener('click', function() {
+    // Download DOC button
+    document.getElementById('download-doc').addEventListener('click', function() {
         generateDOC();
     });
     
-    // Floating generate button
-    document.querySelector('.generate-resume').addEventListener('click', function() {
+    // Generate resume button
+    document.getElementById('generate-resume').addEventListener('click', function() {
         Swal.fire({
             title: 'Generate Resume',
             text: 'Would you like to preview your resume or download it directly?',
@@ -173,8 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showCancelButton: true,
             confirmButtonText: 'Preview',
             cancelButtonText: 'Download PDF',
-            confirmButtonColor: '#2196F3',
-            cancelButtonColor: '#4CAF50'
+            confirmButtonColor: '#4361ee',
+            cancelButtonColor: '#3f37c9'
         }).then((result) => {
             if (result.isConfirmed) {
                 generateResumePreview();
@@ -187,8 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Save button
-    document.getElementById('save-resume')?.addEventListener('click', saveResume);
-    document.getElementById('save-resume-mobile')?.addEventListener('click', saveResume);
+    document.getElementById('save-btn')?.addEventListener('click', saveResume);
     
     // Helper function to reset inputs in cloned elements
     function resetInputs(parent) {
@@ -213,118 +255,103 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Create resume HTML
         let resumeHTML = `
-            <div class="resume-header">
-                <div>
-                    <h1>${formData.full_name || 'Your Name'}</h1>
-                    <h2>${formData.job_title || 'Professional Title'}</h2>
+            <div class="resume-template-${formData.template || 'classic'}">
+                <div class="resume-header">
+                    <div>
+                        <h1>${formData.full_name || 'Your Name'}</h1>
+                        <h2>${formData.job_title || 'Professional Title'}</h2>
+                    </div>
+                    <div class="resume-contact">
+                        <p>${formData.email || 'email@example.com'}</p>
+                        <p>${formData.phone || '(123) 456-7890'}</p>
+                        <p>${formData.address || 'City, State'}</p>
+                        ${formData.linkedin ? `<p>LinkedIn: ${formData.linkedin}</p>` : ''}
+                    </div>
                 </div>
-                <div class="resume-contact">
-                    <p>${formData.email || 'email@example.com'}</p>
-                    <p>${formData.phone || '(123) 456-7890'}</p>
-                    <p>${formData.address || 'City, State'}</p>
-                    ${formData.linkedin ? `<p>LinkedIn: ${formData.linkedin}</p>` : ''}
-                </div>
-            </div>
-            
-            <div class="resume-section resume-summary">
-                <h3>PROFESSIONAL SUMMARY</h3>
-                <p>${formData.summary || 'Experienced professional with a proven track record of success in...'}</p>
+                
+                ${formData.summary ? `
+                    <div class="resume-section">
+                        <h3>PROFESSIONAL SUMMARY</h3>
+                        <p>${formData.summary}</p>
+                    </div>
+                ` : ''}
+                
+                ${formData.experience.length > 0 ? `
+                    <div class="resume-section">
+                        <h3>WORK EXPERIENCE</h3>
+                        ${formData.experience.map(exp => `
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <div>
+                                        <strong>${exp.job_title}</strong>
+                                        <span>${exp.company}</span>
+                                    </div>
+                                    <div class="experience-date">
+                                        ${exp.start_date} - ${exp.end_date || 'Present'}
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        ${exp.description ? exp.description.split('\n').filter(line => line.trim()).map(line => `<li>${line.trim()}</li>`).join('') : '<li>Job responsibilities and achievements</li>'}
+                                    </ul>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${formData.education.length > 0 ? `
+                    <div class="resume-section">
+                        <h3>EDUCATION</h3>
+                        ${formData.education.map(edu => `
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <div>
+                                        <strong>${edu.degree}</strong>
+                                        <span>${edu.institution}</span>
+                                    </div>
+                                    <div class="education-date">
+                                        ${edu.graduation_date}${edu.gpa ? `, GPA: ${edu.gpa}` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${formData.skills.length > 0 ? `
+                    <div class="resume-section">
+                        <h3>SKILLS</h3>
+                        <div class="skills-list">
+                            ${formData.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${formData.languages.length > 0 ? `
+                    <div class="resume-section">
+                        <h3>LANGUAGES</h3>
+                        ${formData.languages.map(lang => `
+                            <div class="language-item">
+                                <span class="language-name">${lang.language}</span>
+                                <span class="language-proficiency">${lang.proficiency}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${formData.certifications.length > 0 ? `
+                    <div class="resume-section">
+                        <h3>CERTIFICATIONS</h3>
+                        ${formData.certifications.map(cert => `
+                            <div>
+                                <strong>${cert.certification_name}</strong> - ${cert.certification_date}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
             </div>
         `;
-        
-        // Add experience
-        if (formData.experience.length > 0) {
-            resumeHTML += `<div class="resume-section"><h3>WORK EXPERIENCE</h3>`;
-            
-            formData.experience.forEach(exp => {
-                resumeHTML += `
-                    <div class="experience-item">
-                        <div class="experience-header">
-                            <div>
-                                <span class="experience-title">${exp.job_title || 'Job Title'}</span>
-                                <span class="experience-company">, ${exp.company || 'Company'}</span>
-                            </div>
-                            <div class="experience-date">
-                                ${exp.start_date || 'Start Date'} - ${exp.end_date || 'Present'}
-                            </div>
-                        </div>
-                        <div class="experience-description">
-                            <ul>
-                                ${exp.description ? exp.description.split('\n').filter(line => line.trim()).map(line => `<li>${line.trim()}</li>`).join('') : '<li>Job responsibilities and achievements</li>'}
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            resumeHTML += `</div>`;
-        }
-        
-        // Add education
-        if (formData.education.length > 0) {
-            resumeHTML += `<div class="resume-section"><h3>EDUCATION</h3>`;
-            
-            formData.education.forEach(edu => {
-                resumeHTML += `
-                    <div class="education-item">
-                        <div class="education-header">
-                            <div>
-                                <span class="education-degree">${edu.degree || 'Degree'}</span>
-                                <span class="education-institution">, ${edu.institution || 'Institution'}</span>
-                            </div>
-                            <div class="education-date">
-                                ${edu.graduation_date || 'Graduation Date'}${edu.gpa ? `, GPA: ${edu.gpa}` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            resumeHTML += `</div>`;
-        }
-        
-        // Add skills
-        if (formData.skills.length > 0) {
-            resumeHTML += `
-                <div class="resume-section">
-                    <h3>SKILLS</h3>
-                    <div class="skills-list">
-                        ${formData.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Add languages
-        if (formData.languages.length > 0) {
-            resumeHTML += `<div class="resume-section"><h3>LANGUAGES</h3>`;
-            
-            formData.languages.forEach(lang => {
-                resumeHTML += `
-                    <div class="language-item">
-                        <span class="language-name">${lang.language || 'Language'}</span>
-                        <span class="language-proficiency">${lang.proficiency || 'Proficiency'}</span>
-                    </div>
-                `;
-            });
-            
-            resumeHTML += `</div>`;
-        }
-        
-        // Add certifications
-        if (formData.certifications.length > 0) {
-            resumeHTML += `<div class="resume-section"><h3>CERTIFICATIONS</h3>`;
-            
-            formData.certifications.forEach(cert => {
-                resumeHTML += `
-                    <div>
-                        <strong>${cert.certification_name || 'Certification Name'}</strong> - ${cert.certification_date || 'Date Obtained'}
-                    </div>
-                `;
-            });
-            
-            resumeHTML += `</div>`;
-        }
         
         preview.innerHTML = resumeHTML;
     }
@@ -343,7 +370,8 @@ document.addEventListener('DOMContentLoaded', function() {
             education: [],
             skills: [],
             languages: [],
-            certifications: []
+            certifications: [],
+            template: new URLSearchParams(window.location.search).get('template') || 'classic'
         };
         
         // Get experience data
@@ -394,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Save resume to Firestore
     function saveResume() {
-        if (!auth.currentUser) {
+        if (!firebase.auth().currentUser) {
             window.location.href = 'auth/login.html?redirect=builder.html';
             return;
         }
@@ -402,41 +430,73 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = getFormData();
         const urlParams = new URLSearchParams(window.location.search);
         const resumeId = urlParams.get('resumeId');
-        const template = urlParams.get('template') || 'classic';
+        const user = firebase.auth().currentUser;
         
         const resumeDoc = {
-            userId: auth.currentUser.uid,
+            userId: user.uid,
             name: formData.full_name || 'Untitled Resume',
-            template: template,
+            template: formData.template,
             data: formData,
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
         };
         
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin btn-icon"></i> Saving...';
+        
         if (resumeId) {
             // Update existing resume
-            db.collection('resumes').doc(resumeId).update(resumeDoc)
+            firebase.firestore().collection('resumes').doc(resumeId).update(resumeDoc)
                 .then(() => {
-                    M.toast({html: 'Resume updated successfully!', classes: 'green'});
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Resume updated successfully',
+                        icon: 'success',
+                        confirmButtonColor: '#4361ee'
+                    });
                 })
                 .catch(error => {
-                    M.toast({html: 'Error updating resume: ' + error.message, classes: 'red'});
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error updating resume: ' + error.message,
+                        icon: 'error',
+                        confirmButtonColor: '#4361ee'
+                    });
                 });
         } else {
             // Create new resume
-            db.collection('resumes').add(resumeDoc)
+            firebase.firestore().collection('resumes').add(resumeDoc)
                 .then((docRef) => {
                     // Update URL with new resume ID
                     window.history.replaceState({}, document.title, `builder.html?resumeId=${docRef.id}`);
                     
                     // Update user's resume count
-                    db.collection('users').doc(auth.currentUser.uid).update({
+                    firebase.firestore().collection('users').doc(user.uid).update({
                         resumeCount: firebase.firestore.FieldValue.increment(1)
                     });
                     
-                    M.toast({html: 'Resume saved successfully!', classes: 'green'});
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Resume saved successfully',
+                        icon: 'success',
+                        confirmButtonColor: '#4361ee'
+                    });
                 })
                 .catch(error => {
-                    M.toast({html: 'Error saving resume: ' + error.message, classes: 'red'});
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error saving resume: ' + error.message,
+                        icon: 'error',
+                        confirmButtonColor: '#4361ee'
+                    });
                 });
         }
     }
@@ -485,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: 'Success!',
                         text: 'Your resume has been downloaded as PDF',
                         icon: 'success',
-                        confirmButtonColor: '#2196F3'
+                        confirmButtonColor: '#4361ee'
                     });
                 }).catch(err => {
                     console.error('Error generating PDF:', err);
@@ -527,7 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: 'Success!',
                         text: 'Your resume has been downloaded as DOC',
                         icon: 'success',
-                        confirmButtonColor: '#2196F3'
+                        confirmButtonColor: '#4361ee'
                     });
                 }, 1500);
             }

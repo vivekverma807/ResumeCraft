@@ -6,102 +6,127 @@
     <title>My Dashboard - ResumeCraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header>
-        <nav class="nav-wrapper blue darken-2">
-            <div class="container">
-                <a href="index.html" class="brand-logo">ResumeCraft</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">New Resume</a></li>
-                    <li>
-                        <a class="dropdown-trigger" href="#!" data-target="user-dropdown">
-                            <img src="assets/images/user-placeholder.jpg" alt="User" class="circle user-avatar">
-                        </a>
-                    </li>
-                </ul>
-                <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                    <i class="mdi mdi-menu"></i>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">ResumeCraft</a>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-link">Home</a>
+                <a href="builder.html" class="btn btn-primary">
+                    <i class="mdi mdi-plus btn-icon"></i> New Resume
                 </a>
-                <ul class="sidenav" id="mobile-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="builder.html" class="btn waves-effect waves-light">New Resume</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="#!" id="logout-mobile">Logout</a></li>
-                </ul>
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar">
+                        <span id="username">User</span>
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item"><i class="mdi mdi-account"></i> Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logout" class="dropdown-item"><i class="mdi mdi-logout"></i> Logout</a>
+                    </div>
+                </div>
             </div>
-        </nav>
-        
-        <ul id="user-dropdown" class="dropdown-content">
-            <li><a href="profile.html"><i class="mdi mdi-account-circle"></i> Profile</a></li>
-            <li><a href="#!" id="logout"><i class="mdi mdi-logout"></i> Logout</a></li>
-        </ul>
-    </header>
+        </div>
+    </nav>
 
-    <main class="dashboard-container">
+    <main class="dashboard">
         <div class="container">
             <div class="row">
                 <!-- Sidebar -->
                 <div class="col s12 m4 l3">
-                    <div class="card-panel sidebar">
-                        <div class="user-profile center-align">
-                            <img src="assets/images/user-placeholder.jpg" alt="User" class="circle responsive-img user-avatar-large">
-                            <h5 id="user-name">Loading...</h5>
-                            <p id="user-email">Loading...</p>
-                            <div class="progress">
-                                <div class="determinate" style="width: 75%"></div>
+                    <div class="sidebar">
+                        <div class="user-profile">
+                            <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar-large">
+                            <h3 id="user-name">John Doe</h3>
+                            <p id="user-email">john@example.com</p>
+                            
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="resume-count">5</div>
+                                    <div class="stat-label">Resumes</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="download-count">12</div>
+                                    <div class="stat-label">Downloads</div>
+                                </div>
                             </div>
-                            <p>Profile Strength: 75%</p>
-                            <a href="profile.html" class="btn waves-effect waves-light blue">Complete Profile</a>
+                            
+                            <a href="profile.html" class="btn btn-outline" style="width: 100%; margin-top: 20px;">
+                                <i class="mdi mdi-account-edit btn-icon"></i> Complete Profile
+                            </a>
                         </div>
                         
-                        <ul class="collection with-header">
-                            <li class="collection-header"><h6>Menu</h6></li>
-                            <li class="collection-item active"><a href="dashboard.html"><i class="mdi mdi-view-dashboard"></i> Dashboard</a></li>
-                            <li class="collection-item"><a href="resumes.html"><i class="mdi mdi-file-document-multiple"></i> My Resumes</a></li>
-                            <li class="collection-item"><a href="cover-letters.html"><i class="mdi mdi-email"></i> Cover Letters</a></li>
-                            <li class="collection-item"><a href="templates.html"><i class="mdi mdi-palette"></i> Templates</a></li>
-                        </ul>
+                        <div class="sidebar-menu">
+                            <a href="dashboard.html" class="menu-item active">
+                                <i class="mdi mdi-view-dashboard"></i> Dashboard
+                            </a>
+                            <a href="resumes.html" class="menu-item">
+                                <i class="mdi mdi-file-document-multiple"></i> My Resumes
+                            </a>
+                            <a href="cover-letters.html" class="menu-item">
+                                <i class="mdi mdi-email"></i> Cover Letters
+                            </a>
+                            <a href="templates.html" class="menu-item">
+                                <i class="mdi mdi-palette"></i> Templates
+                            </a>
+                            <a href="settings.html" class="menu-item">
+                                <i class="mdi mdi-cog"></i> Settings
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Main Content -->
                 <div class="col s12 m8 l9">
                     <div class="dashboard-header">
-                        <h4>Welcome Back, <span id="user-greeting">User</span>!</h4>
+                        <h1>Welcome Back, <span id="user-greeting">John</span>!</h1>
                         <p>Here's what's happening with your resumes today</p>
                     </div>
                     
                     <!-- Stats Cards -->
-                    <div class="row">
-                        <div class="col s12 m6 l3">
-                            <div class="card-panel blue darken-2 white-text center-align">
-                                <i class="mdi mdi-file-document large"></i>
-                                <h5 id="resume-count">0</h5>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="mdi mdi-file-document"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="resume-count-main">5</h3>
                                 <p>Resumes Created</p>
                             </div>
                         </div>
-                        <div class="col s12 m6 l3">
-                            <div class="card-panel green darken-2 white-text center-align">
-                                <i class="mdi mdi-cloud-download large"></i>
-                                <h5 id="download-count">0</h5>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="download-count-main">12</h3>
                                 <p>Downloads</p>
                             </div>
                         </div>
-                        <div class="col s12 m6 l3">
-                            <div class="card-panel orange darken-2 white-text center-align">
-                                <i class="mdi mdi-briefcase-check large"></i>
-                                <h5 id="applications-count">0</h5>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="mdi mdi-briefcase-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="applications-count">3</h3>
                                 <p>Job Applications</p>
                             </div>
                         </div>
-                        <div class="col s12 m6 l3">
-                            <div class="card-panel purple darken-2 white-text center-align">
-                                <i class="mdi mdi-star large"></i>
-                                <h5 id="favorites-count">0</h5>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="mdi mdi-star"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="favorites-count">2</h3>
                                 <p>Favorite Templates</p>
                             </div>
                         </div>
@@ -109,56 +134,132 @@
                     
                     <!-- Recent Resumes -->
                     <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Recent Resumes</span>
-                            <a href="builder.html" class="btn-floating btn-small waves-effect waves-light blue right"><i class="mdi mdi-plus"></i></a>
-                            
-                            <table class="highlight responsive-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Template</th>
-                                        <th>Last Modified</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="resumes-table">
-                                    <tr>
-                                        <td colspan="4" class="center-align">Loading resumes...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="card-header">
+                            <h3>Recent Resumes</h3>
+                            <a href="builder.html" class="btn btn-icon">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="resumes-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Template</th>
+                                            <th>Last Modified</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resumes-table">
+                                        <tr>
+                                            <td>Senior Developer Resume</td>
+                                            <td>Modern</td>
+                                            <td>2 days ago</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-download"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>UX Designer Portfolio</td>
+                                            <td>Creative</td>
+                                            <td>1 week ago</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-download"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Quick Actions -->
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">Quick Actions</span>
-                                    <div class="quick-actions">
-                                        <a href="builder.html" class="btn-large waves-effect waves-light blue">
-                                            <i class="mdi mdi-file-document left"></i> New Resume
-                                        </a>
-                                        <a href="templates.html" class="btn-large waves-effect waves-light purple">
-                                            <i class="mdi mdi-palette left"></i> Browse Templates
-                                        </a>
-                                    </div>
+                    <div class="quick-actions">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="actions-grid">
+                                    <a href="builder.html" class="action-card">
+                                        <div class="action-icon">
+                                            <i class="mdi mdi-file-document"></i>
+                                        </div>
+                                        <h4>New Resume</h4>
+                                        <p>Create a new resume from scratch</p>
+                                    </a>
+                                    
+                                    <a href="templates.html" class="action-card">
+                                        <div class="action-icon">
+                                            <i class="mdi mdi-palette"></i>
+                                        </div>
+                                        <h4>Browse Templates</h4>
+                                        <p>Choose from professional designs</p>
+                                    </a>
+                                    
+                                    <a href="cover-letters.html" class="action-card">
+                                        <div class="action-icon">
+                                            <i class="mdi mdi-email-newsletter"></i>
+                                        </div>
+                                        <h4>Create Cover Letter</h4>
+                                        <p>Write a matching cover letter</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">Recent Activity</span>
-                                    <ul class="collection activity-feed" id="activity-feed">
-                                        <li class="collection-item avatar">
-                                            <i class="mdi mdi-information-outline circle blue"></i>
-                                            <span class="title">Loading activities...</span>
-                                        </li>
-                                    </ul>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Activity</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-feed" id="activity-feed">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="mdi mdi-file-document"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p><strong>Created new resume</strong></p>
+                                            <p class="activity-meta">Senior Developer Resume • 2 days ago</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="mdi mdi-download"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p><strong>Downloaded resume</strong></p>
+                                            <p class="activity-meta">PDF format • 3 days ago</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="mdi mdi-star"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p><strong>Favorited template</strong></p>
+                                            <p class="activity-meta">Modern Layout • 1 week ago</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -168,29 +269,187 @@
         </div>
     </main>
 
-    <footer class="page-footer blue darken-3">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <h5>ResumeCraft Dashboard</h5>
-                    <p>Your personal resume management center</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright blue darken-4">
-            <div class="container">
-                © 2025 ResumeCraft. All rights reserved.
-                <a class="grey-text text-lighten-4 right" href="#!">Help Center</a>
-            </div>
-        </div>
-    </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="scripts/auth.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Update auth UI
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            // Update user info
+            document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
+            document.getElementById('user-name').textContent = user.displayName || user.email;
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('user-greeting').textContent = user.displayName || user.email.split('@')[0];
+            
+            // Load user data
+            loadUserData(user.uid);
+        });
+
+        // Load user data from Firestore
+        async function loadUserData(userId) {
+            try {
+                const userDoc = await getDoc(doc(db, "users", userId));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    
+                    // Update stats
+                    document.getElementById('resume-count').textContent = userData.resumeCount || 0;
+                    document.getElementById('download-count').textContent = userData.downloadCount || 0;
+                    document.getElementById('applications-count').textContent = userData.applicationsCount || 0;
+                    document.getElementById('favorites-count').textContent = userData.favoritesCount || 0;
+                    
+                    document.getElementById('resume-count-main').textContent = userData.resumeCount || 0;
+                    document.getElementById('download-count-main').textContent = userData.downloadCount || 0;
+                }
+                
+                // Load resumes
+                loadResumes(userId);
+            } catch (error) {
+                console.error("Error loading user data:", error);
+            }
+        }
+
+        // Load user's resumes
+        async function loadResumes(userId) {
+            try {
+                const querySnapshot = await getDocs(collection(db, "resumes"));
+                const resumesTable = document.getElementById('resumes-table');
+                resumesTable.innerHTML = '';
+                
+                if (querySnapshot.empty) {
+                    resumesTable.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="empty-table">No resumes found. <a href="builder.html">Create your first resume</a></td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                querySnapshot.forEach((doc) => {
+                    const resume = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${resume.name || 'Untitled Resume'}</td>
+                        <td>${resume.template || 'Classic'}</td>
+                        <td>${formatDate(resume.lastUpdated?.toDate())}</td>
+                        <td class="actions">
+                            <a href="builder.html?resumeId=${doc.id}" class="btn btn-icon">
+                                <i class="mdi mdi-pencil"></i>
+                            </a>
+                            <a href="#" class="btn btn-icon download-resume" data-id="${doc.id}">
+                                <i class="mdi mdi-download"></i>
+                            </a>
+                            <a href="#" class="btn btn-icon delete-resume" data-id="${doc.id}">
+                                <i class="mdi mdi-delete"></i>
+                            </a>
+                        </td>
+                    `;
+                    
+                    resumesTable.appendChild(row);
+                });
+                
+                // Add event listeners for download and delete buttons
+                document.querySelectorAll('.download-resume').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const resumeId = this.dataset.id;
+                        downloadResume(resumeId);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-resume').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const resumeId = this.dataset.id;
+                        deleteResume(resumeId);
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading resumes:", error);
+            }
+        }
+
+        // Format date
+        function formatDate(date) {
+            if (!date) return 'N/A';
+            
+            const now = new Date();
+            const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+            
+            if (diffInDays === 0) return 'Today';
+            if (diffInDays === 1) return 'Yesterday';
+            if (diffInDays < 7) return `${diffInDays} days ago`;
+            
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Download resume
+        function downloadResume(resumeId) {
+            console.log('Downloading resume:', resumeId);
+            Swal.fire({
+                title: 'Preparing Download',
+                text: 'Your resume is being prepared for download',
+                icon: 'info',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false
+            });
+        }
+
+        // Delete resume
+        function deleteResume(resumeId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your resume has been deleted.',
+                        'success'
+                    );
+                }
+            });
+        }
+
+        // Logout functionality
+        document.getElementById('logout')?.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
     <script src="scripts/dashboard.js"></script>
 </body>
 </html>

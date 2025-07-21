@@ -5,77 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | ResumeCraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <style>
         .auth-container {
-            padding: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: #f8f9fa;
         }
-        .auth-container .card {
-            border-radius: 8px;
+        
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.5s;
+        }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .auth-body {
+            padding: 30px;
+        }
+        
+        .auth-footer {
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .auth-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .auth-subtitle {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-actions {
+            margin-top: 30px;
+        }
+        
+        .auth-link {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+        
+        .password-strength {
+            margin-top: 8px;
+            height: 4px;
+            background-color: var(--light-gray);
+            border-radius: 2px;
             overflow: hidden;
         }
-        .auth-links {
-            margin-top: 20px;
+        
+        .strength-meter {
+            height: 100%;
+            width: 0%;
+            background-color: var(--warning-color);
+            transition: all 0.3s ease;
         }
-        .progress {
-            display: none;
-            margin-top: 20px;
+        
+        .password-hint {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-top: 5px;
+        }
+        
+        .terms-check {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+        
+        .terms-check input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .terms-text {
+            font-size: 0.9rem;
+            color: var(--gray-color);
         }
     </style>
 </head>
 <body>
     <div class="auth-container">
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title center-align">Create Your ResumeCraft Account</span>
-                        
-                        <form id="register-form">
-                            <div class="input-field">
-                                <input id="name" type="text" class="validate" required>
-                                <label for="name">Full Name</label>
-                            </div>
-                            
-                            <div class="input-field">
-                                <input id="email" type="email" class="validate" required>
-                                <label for="email">Email</label>
-                            </div>
-                            
-                            <div class="input-field">
-                                <input id="password" type="password" class="validate" required minlength="6">
-                                <label for="password">Password (min 6 characters)</label>
-                            </div>
-                            
-                            <div class="input-field">
-                                <input id="confirm-password" type="password" class="validate" required>
-                                <label for="confirm-password">Confirm Password</label>
-                            </div>
-                            
-                            <div class="center-align">
-                                <button type="submit" class="btn waves-effect waves-light blue">Register</button>
-                                <div class="progress" id="register-progress">
-                                    <div class="indeterminate"></div>
-                                </div>
-                            </div>
-                        </form>
-                        
-                        <div class="center-align auth-links">
-                            <p>Already have an account? <a href="login.html">Login</a></p>
-                            <p>By registering, you agree to our <a href="#">Terms of Service</a></p>
-                        </div>
+        <div class="auth-card animate__animated animate__fadeInUp">
+            <div class="auth-header">
+                <div class="auth-logo">ResumeCraft</div>
+                <h2 class="auth-title">Create Your Account</h2>
+                <p class="auth-subtitle">Start building your perfect resume</p>
+            </div>
+            
+            <div class="auth-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe" required>
                     </div>
-                </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required minlength="6">
+                        <div class="password-strength">
+                            <div class="strength-meter" id="strength-meter"></div>
+                        </div>
+                        <div class="password-hint">Minimum 6 characters</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="terms-check">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms" class="terms-text">
+                            I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="mdi mdi-account-plus btn-icon"></i> Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html" class="auth-link">Login here</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    <!-- Firebase SDK (Version 10) -->
     <script type="module">
+        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { 
             getAuth, 
@@ -91,18 +189,41 @@
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyDTNPLG6frD1tyWX51ETQN-U11Vx1aUpYg",
-            authDomain: "resumecraft-ddf13.firebaseapp.com",
-            projectId: "resumecraft-ddf13",
-            storageBucket: "resumecraft-ddf13.appspot.com",
-            messagingSenderId: "699223165445",
-            appId: "1:699223165445:web:c9b2cd2838a3fa9b53ea6c"
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthMeter = document.getElementById('strength-meter');
+            let strength = 0;
+            
+            if (password.length >= 6) strength += 25;
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            strengthMeter.style.width = strength + '%';
+            
+            if (strength < 50) {
+                strengthMeter.style.backgroundColor = 'var(--warning-color)';
+            } else if (strength < 75) {
+                strengthMeter.style.backgroundColor = 'orange';
+            } else {
+                strengthMeter.style.backgroundColor = 'var(--success-color)';
+            }
+        });
 
         // Form submission handler
         document.getElementById('register-form').addEventListener('submit', async (e) => {
@@ -112,15 +233,21 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
-            const progress = document.getElementById('register-progress');
+            const submitBtn = document.querySelector('#register-form button[type="submit"]');
             
             // Validation
             if (password !== confirmPassword) {
-                M.toast({html: 'Passwords do not match', classes: 'red'});
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Passwords do not match',
+                    icon: 'error',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
                 return;
             }
             
-            progress.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin btn-icon"></i> Registering...';
             
             try {
                 // 1. Create user account
@@ -140,15 +267,35 @@
                 });
                 
                 // Redirect
-                const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'dashboard.html';
+                const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || '../dashboard.html';
                 window.location.href = redirectUrl;
                 
             } catch (error) {
-                progress.style.display = 'none';
-                M.toast({html: error.message, classes: 'red'});
-                console.error("Registration error:", error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="mdi mdi-account-plus btn-icon"></i> Register';
+                
+                let errorMessage = 'Registration failed. Please try again.';
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'This email is already registered.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Please enter a valid email address.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'Password should be at least 6 characters.';
+                        break;
+                }
+                
+                Swal.fire({
+                    title: 'Error',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

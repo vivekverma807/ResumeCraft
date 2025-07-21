@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Materialize components
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
-    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'), {
-        coverTrigger: false
-    });
     
     // Load user data
     loadUserData();
@@ -16,11 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup logout button
     document.getElementById('logout')?.addEventListener('click', logout);
-    document.getElementById('logout-mobile')?.addEventListener('click', logout);
 });
 
 function loadUserData() {
-    const user = auth.currentUser;
+    const user = firebase.auth().currentUser;
     if (!user) {
         window.location.href = 'auth/login.html';
         return;
@@ -30,36 +26,42 @@ function loadUserData() {
     document.getElementById('user-name').textContent = user.displayName || user.email;
     document.getElementById('user-email').textContent = user.email;
     document.getElementById('user-greeting').textContent = user.displayName || user.email.split('@')[0];
+    document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
     
     // Get user stats
-    db.collection('users').doc(user.uid).get().then(doc => {
+    firebase.firestore().collection('users').doc(user.uid).get().then(doc => {
         if (doc.exists) {
             const userData = doc.data();
             document.getElementById('resume-count').textContent = userData.resumeCount || 0;
             document.getElementById('download-count').textContent = userData.downloadCount || 0;
             document.getElementById('applications-count').textContent = userData.applicationsCount || 0;
             document.getElementById('favorites-count').textContent = userData.favoritesCount || 0;
+            
+            document.getElementById('resume-count-main').textContent = userData.resumeCount || 0;
+            document.getElementById('download-count-main').textContent = userData.downloadCount || 0;
         }
     });
 }
 
 function loadRecentResumes() {
-    const user = auth.currentUser;
+    const user = firebase.auth().currentUser;
     if (!user) return;
     
-    db.collection('resumes')
+    firebase.firestore().collection('resumes')
         .where('userId', '==', user.uid)
         .orderBy('lastUpdated', 'desc')
         .limit(5)
         .get()
         .then(querySnapshot => {
             const resumesTable = document.getElementById('resumes-table');
+            if (!resumesTable) return;
+            
             resumesTable.innerHTML = '';
             
             if (querySnapshot.empty) {
                 resumesTable.innerHTML = `
                     <tr>
-                        <td colspan="4" class="center-align">No resumes found. <a href="builder.html">Create your first resume</a></td>
+                        <td colspan="4" class="empty-table">No resumes found. <a href="builder.html">Create your first resume</a></td>
                     </tr>
                 `;
                 return;
@@ -73,14 +75,14 @@ function loadRecentResumes() {
                     <td>${resume.name || 'Untitled Resume'}</td>
                     <td>${resume.template || 'Classic'}</td>
                     <td>${formatDate(resume.lastUpdated?.toDate())}</td>
-                    <td>
-                        <a href="builder.html?resumeId=${doc.id}" class="btn-small waves-effect waves-light blue">
+                    <td class="actions">
+                        <a href="builder.html?resumeId=${doc.id}" class="btn btn-icon">
                             <i class="mdi mdi-pencil"></i>
                         </a>
-                        <a href="#!" class="btn-small waves-effect waves-light green download-resume" data-id="${doc.id}">
+                        <a href="#!" class="btn btn-icon download-resume" data-id="${doc.id}">
                             <i class="mdi mdi-download"></i>
                         </a>
-                        <a href="#!" class="btn-small waves-effect waves-light red delete-resume" data-id="${doc.id}">
+                        <a href="#!" class="btn btn-icon delete-resume" data-id="${doc.id}">
                             <i class="mdi mdi-delete"></i>
                         </a>
                     </td>
@@ -113,31 +115,35 @@ function loadRecentResumes() {
 }
 
 function loadRecentActivity() {
-    const user = auth.currentUser;
+    const user = firebase.auth().currentUser;
     if (!user) return;
     
-    db.collection('activity')
+    firebase.firestore().collection('activity')
         .where('userId', '==', user.uid)
         .orderBy('timestamp', 'desc')
         .limit(3)
         .get()
         .then(querySnapshot => {
             const activityFeed = document.getElementById('activity-feed');
+            if (!activityFeed) return;
+            
             activityFeed.innerHTML = '';
             
             if (querySnapshot.empty) {
                 activityFeed.innerHTML = `
-                    <li class="collection-item">
-                        <span class="title">No recent activity</span>
-                    </li>
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <p>No recent activity</p>
+                        </div>
+                    </div>
                 `;
                 return;
             }
             
             querySnapshot.forEach(doc => {
                 const activity = doc.data();
-                const item = document.createElement('li');
-                item.className = 'collection-item avatar';
+                const item = document.createElement('div');
+                item.className = 'activity-item';
                 
                 let icon = '';
                 let text = '';
@@ -161,9 +167,13 @@ function loadRecentActivity() {
                 }
                 
                 item.innerHTML = `
-                    <i class="mdi ${icon} circle blue"></i>
-                    <span class="title">${text}</span>
-                    <p>${formatDate(activity.timestamp?.toDate())}</p>
+                    <div class="activity-icon">
+                        <i class="mdi ${icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p><strong>${text}</strong></p>
+                        <p class="activity-meta">${formatDate(activity.timestamp?.toDate())}</p>
+                    </div>
                 `;
                 
                 activityFeed.appendChild(item);
@@ -188,17 +198,16 @@ function formatDate(date) {
 }
 
 function downloadResume(resumeId) {
-    // In a real implementation, this would generate and download the resume
     console.log('Downloading resume:', resumeId);
     
     // Record download activity
-    const user = auth.currentUser;
+    const user = firebase.auth().currentUser;
     if (user) {
-        db.collection('resumes').doc(resumeId).get().then(doc => {
+        firebase.firestore().collection('resumes').doc(resumeId).get().then(doc => {
             if (doc.exists) {
                 const resume = doc.data();
                 
-                db.collection('activity').add({
+                firebase.firestore().collection('activity').add({
                     userId: user.uid,
                     type: 'resume_downloaded',
                     resumeName: resume.name,
@@ -207,11 +216,18 @@ function downloadResume(resumeId) {
                 });
                 
                 // Update download count
-                db.collection('users').doc(user.uid).update({
+                firebase.firestore().collection('users').doc(user.uid).update({
                     downloadCount: firebase.firestore.FieldValue.increment(1)
                 });
                 
-                M.toast({html: 'Preparing resume download...', classes: 'green'});
+                Swal.fire({
+                    title: 'Preparing Download',
+                    text: 'Your resume is being prepared for download',
+                    icon: 'info',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
             }
         });
     }
@@ -228,18 +244,18 @@ function deleteResume(resumeId) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            const user = auth.currentUser;
+            const user = firebase.auth().currentUser;
             if (!user) return;
             
-            db.collection('resumes').doc(resumeId).delete()
+            firebase.firestore().collection('resumes').doc(resumeId).delete()
                 .then(() => {
                     // Update resume count
-                    db.collection('users').doc(user.uid).update({
+                    firebase.firestore().collection('users').doc(user.uid).update({
                         resumeCount: firebase.firestore.FieldValue.increment(-1)
                     });
                     
                     // Record activity
-                    db.collection('activity').add({
+                    firebase.firestore().collection('activity').add({
                         userId: user.uid,
                         type: 'resume_deleted',
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -267,11 +283,16 @@ function deleteResume(resumeId) {
 }
 
 function logout() {
-    auth.signOut()
+    firebase.auth().signOut()
         .then(() => {
             window.location.href = 'index.html';
         })
         .catch(error => {
-            M.toast({html: 'Error signing out: ' + error.message, classes: 'red'});
+            Swal.fire({
+                title: 'Error',
+                text: 'Error signing out: ' + error.message,
+                icon: 'error',
+                confirmButtonColor: '#4361ee'
+            });
         });
 }

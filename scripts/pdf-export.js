@@ -22,66 +22,104 @@ function generatePDF(resumeData) {
 function generateResumeHTML(data) {
     // Generate HTML based on resume data and template
     return `
-        <div class="resume-template-${data.template}">
+        <div class="resume-template-${data.template || 'classic'}">
             <div class="resume-header">
-                <h1>${data.personal.name}</h1>
-                <h2>${data.personal.title}</h2>
-                <div class="contact-info">
-                    ${data.personal.email ? `<p>${data.personal.email}</p>` : ''}
-                    ${data.personal.phone ? `<p>${data.personal.phone}</p>` : ''}
-                    ${data.personal.linkedin ? `<p>${data.personal.linkedin}</p>` : ''}
+                <div>
+                    <h1>${data.personal?.name || 'Your Name'}</h1>
+                    <h2>${data.personal?.title || 'Professional Title'}</h2>
+                </div>
+                <div class="resume-contact">
+                    <p>${data.personal?.email || 'email@example.com'}</p>
+                    <p>${data.personal?.phone || '(123) 456-7890'}</p>
+                    <p>${data.personal?.address || 'City, State'}</p>
+                    ${data.personal?.linkedin ? `<p>LinkedIn: ${data.personal.linkedin}</p>` : ''}
                 </div>
             </div>
             
             ${data.summary ? `
-                <div class="section">
+                <div class="resume-section">
                     <h3>SUMMARY</h3>
                     <p>${data.summary}</p>
                 </div>
             ` : ''}
             
-            ${data.experience.length > 0 ? `
-                <div class="section">
+            ${data.experience?.length > 0 ? `
+                <div class="resume-section">
                     <h3>EXPERIENCE</h3>
                     ${data.experience.map(exp => `
-                        <div class="experience">
+                        <div class="experience-item">
                             <div class="experience-header">
-                                <strong>${exp.jobTitle}</strong>
-                                <span>${exp.company}</span>
-                                <span class="date">${exp.startDate} - ${exp.endDate || 'Present'}</span>
+                                <div>
+                                    <strong>${exp.job_title || 'Job Title'}</strong>
+                                    <span>${exp.company || 'Company'}</span>
+                                </div>
+                                <div class="experience-date">
+                                    ${exp.start_date || 'Start Date'} - ${exp.end_date || 'Present'}
+                                </div>
                             </div>
-                            <ul>
-                                ${exp.description.split('\n').map(line => `<li>${line}</li>`).join('')}
-                            </ul>
+                            <div class="experience-description">
+                                <ul>
+                                    ${exp.description ? exp.description.split('\n').filter(line => line.trim()).map(line => `<li>${line.trim()}</li>`).join('') : '<li>Job responsibilities and achievements</li>'}
+                                </ul>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
             ` : ''}
             
-            ${data.education.length > 0 ? `
-                <div class="section">
+            ${data.education?.length > 0 ? `
+                <div class="resume-section">
                     <h3>EDUCATION</h3>
                     ${data.education.map(edu => `
-                        <div class="education">
+                        <div class="education-item">
                             <div class="education-header">
-                                <strong>${edu.degree}</strong>
-                                <span>${edu.institution}</span>
-                                <span class="date">${edu.graduationDate}</span>
+                                <div>
+                                    <strong>${edu.degree || 'Degree'}</strong>
+                                    <span>${edu.institution || 'Institution'}</span>
+                                </div>
+                                <div class="education-date">
+                                    ${edu.graduation_date || 'Graduation Date'}${edu.gpa ? `, GPA: ${edu.gpa}` : ''}
+                                </div>
                             </div>
-                            ${edu.gpa ? `<p>GPA: ${edu.gpa}</p>` : ''}
                         </div>
                     `).join('')}
                 </div>
             ` : ''}
             
-            ${data.skills.length > 0 ? `
-                <div class="section">
+            ${data.skills?.length > 0 ? `
+                <div class="resume-section">
                     <h3>SKILLS</h3>
-                    <div class="skills">
-                        ${data.skills.map(skill => `<span class="skill">${skill}</span>`).join('')}
+                    <div class="skills-list">
+                        ${data.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
                     </div>
+                </div>
+            ` : ''}
+            
+            ${data.languages?.length > 0 ? `
+                <div class="resume-section">
+                    <h3>LANGUAGES</h3>
+                    ${data.languages.map(lang => `
+                        <div class="language-item">
+                            <span class="language-name">${lang.language || 'Language'}</span>
+                            <span class="language-proficiency">${lang.proficiency || 'Proficiency'}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            ${data.certifications?.length > 0 ? `
+                <div class="resume-section">
+                    <h3>CERTIFICATIONS</h3>
+                    ${data.certifications.map(cert => `
+                        <div>
+                            <strong>${cert.certification_name || 'Certification Name'}</strong> - ${cert.certification_date || 'Date Obtained'}
+                        </div>
+                    `).join('')}
                 </div>
             ` : ''}
         </div>
     `;
 }
+
+// Export functions for use in other files
+export { generatePDF, generateResumeHTML };

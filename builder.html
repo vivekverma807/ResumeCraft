@@ -6,303 +6,293 @@
     <title>Resume Builder | ResumeCraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles/builder.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header>
-        <nav class="nav-wrapper blue darken-2">
-            <div class="container">
-                <a href="index.html" class="brand-logo">ResumeCraft</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Home</a></li>
-                    <li data-auth="logged-out"><a href="auth/login.html?redirect=builder.html" class="btn waves-effect waves-light blue lighten-1">Login</a></li>
-                    <li data-auth="logged-in">
-                        <a class="dropdown-trigger" href="#!" data-target="user-dropdown">
-                            <img src="assets/images/user-placeholder.jpg" alt="User" class="circle user-avatar">
-                        </a>
-                    </li>
-                    <li><a href="#preview" class="btn waves-effect waves-light preview-btn">Preview</a></li>
-                    <li data-auth="logged-in"><a href="#!" class="btn waves-effect waves-light" id="save-resume">Save</a></li>
-                </ul>
-                <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                    <i class="mdi mdi-menu"></i>
-                </a>
-                <ul class="sidenav" id="mobile-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li data-auth="logged-out"><a href="auth/login.html?redirect=builder.html">Login</a></li>
-                    <li data-auth="logged-in"><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="#preview" class="btn waves-effect waves-light preview-btn">Preview</a></li>
-                    <li data-auth="logged-in"><a href="#!" class="btn waves-effect waves-light" id="save-resume-mobile">Save</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-        <ul id="user-dropdown" class="dropdown-content">
-            <li><a href="dashboard.html"><i class="mdi mdi-view-dashboard"></i> Dashboard</a></li>
-            <li><a href="#!"><i class="mdi mdi-account"></i> Profile</a></li>
-            <li class="divider"></li>
-            <li><a href="#!" id="logout"><i class="mdi mdi-logout"></i> Logout</a></li>
-        </ul>
-    </header>
-
-    <main class="container">
-        <div class="row">
-            <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab col s3"><a href="#personal" class="active">Personal</a></li>
-                    <li class="tab col s3"><a href="#experience">Experience</a></li>
-                    <li class="tab col s3"><a href="#education">Education</a></li>
-                    <li class="tab col s3"><a href="#skills">Skills</a></li>
-                </ul>
-            </div>
-            
-            <!-- Personal Information Section -->
-            <div id="personal" class="col s12">
-                <div class="card-panel">
-                    <h4>Personal Information</h4>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input id="full_name" type="text" class="validate">
-                            <label for="full_name">Full Name</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input id="job_title" type="text" class="validate">
-                            <label for="job_title">Professional Title</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input id="phone" type="tel" class="validate">
-                            <label for="phone">Phone Number</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input id="address" type="text" class="validate">
-                            <label for="address">Address</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input id="linkedin" type="url" class="validate">
-                            <label for="linkedin">LinkedIn Profile</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="summary" class="materialize-textarea"></textarea>
-                            <label for="summary">Professional Summary</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Upload Photo (Optional)</label>
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>Browse</span>
-                                    <input type="file" id="photo" accept="image/*">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">ResumeCraft</a>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-link">Home</a>
+                <div data-auth="logged-out">
+                    <a href="auth/login.html?redirect=builder.html" class="btn btn-outline">Login</a>
+                </div>
+                <div data-auth="logged-in" style="display: none;">
+                    <div class="user-dropdown">
+                        <button class="user-btn">
+                            <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar">
+                            <span id="username">User</span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item"><i class="mdi mdi-view-dashboard"></i> Dashboard</a>
+                            <a href="#" class="dropdown-item"><i class="mdi mdi-account"></i> Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" id="logout" class="dropdown-item"><i class="mdi mdi-logout"></i> Logout</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Experience Section -->
-            <div id="experience" class="col s12">
-                <div class="card-panel">
-                    <h4>Work Experience</h4>
-                    <div id="experience-fields">
-                        <div class="experience-item">
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate job-title" name="job_title[]">
-                                    <label>Job Title</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate company" name="company[]">
-                                    <label>Company</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate datepicker start-date" name="start_date[]">
-                                    <label>Start Date</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate datepicker end-date" name="end_date[]">
-                                    <label>End Date (Leave blank if current)</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea class="materialize-textarea description" name="description[]"></textarea>
-                                    <label>Job Description (Bullet points work best)</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 right-align">
-                                    <a href="#!" class="btn-flat red-text remove-experience">Remove</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 center-align">
-                            <a href="#!" class="btn waves-effect waves-light" id="add-experience">Add Another Position</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Education Section -->
-            <div id="education" class="col s12">
-                <div class="card-panel">
-                    <h4>Education</h4>
-                    <div id="education-fields">
-                        <div class="education-item">
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate degree" name="degree[]">
-                                    <label>Degree/Certification</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate institution" name="institution[]">
-                                    <label>Institution</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate datepicker graduation-date" name="graduation_date[]">
-                                    <label>Graduation Date</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input type="text" class="validate gpa" name="gpa[]">
-                                    <label>GPA (Optional)</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 right-align">
-                                    <a href="#!" class="btn-flat red-text remove-education">Remove</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 center-align">
-                            <a href="#!" class="btn waves-effect waves-light" id="add-education">Add Another Education</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Skills Section -->
-            <div id="skills" class="col s12">
-                <div class="card-panel">
-                    <h4>Skills</h4>
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="chips chips-autocomplete" id="skills-chips"></div>
-                            <label>Add your skills (Press enter after each skill)</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <h5>Languages</h5>
-                            <div id="language-fields">
-                                <div class="language-item">
-                                    <div class="row">
-                                        <div class="input-field col s12 m6">
-                                            <input type="text" class="validate language" name="language[]">
-                                            <label>Language</label>
-                                        </div>
-                                        <div class="input-field col s12 m6">
-                                            <select class="validate proficiency" name="proficiency[]">
-                                                <option value="" disabled selected>Select Proficiency</option>
-                                                <option value="Native">Native</option>
-                                                <option value="Fluent">Fluent</option>
-                                                <option value="Intermediate">Intermediate</option>
-                                                <option value="Basic">Basic</option>
-                                            </select>
-                                            <label>Proficiency Level</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 right-align">
-                                            <a href="#!" class="btn-flat red-text remove-language">Remove</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 center-align">
-                                    <a href="#!" class="btn waves-effect waves-light" id="add-language">Add Another Language</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <h5>Certifications (Optional)</h5>
-                            <div id="certification-fields">
-                                <div class="certification-item">
-                                    <div class="row">
-                                        <div class="input-field col s12 m6">
-                                            <input type="text" class="validate certification-name" name="certification_name[]">
-                                            <label>Certification Name</label>
-                                        </div>
-                                        <div class="input-field col s12 m6">
-                                            <input type="text" class="validate datepicker certification-date" name="certification_date[]">
-                                            <label>Date Obtained</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 right-align">
-                                            <a href="#!" class="btn-flat red-text remove-certification">Remove</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 center-align">
-                                    <a href="#!" class="btn waves-effect waves-light" id="add-certification">Add Another Certification</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="preview-btn" class="btn btn-primary">
+                    <i class="mdi mdi-eye-outline btn-icon"></i> Preview
+                </button>
+                <button id="save-btn" class="btn btn-secondary" data-auth="logged-in" style="display: none;">
+                    <i class="mdi mdi-content-save btn-icon"></i> Save
+                </button>
             </div>
         </div>
-        
-        <div class="fixed-action-btn">
-            <a href="#!" class="btn-floating btn-large waves-effect waves-light green generate-resume">
-                <i class="mdi mdi-file-download-outline"></i>
-            </a>
+    </nav>
+
+    <main class="builder-container">
+        <div class="container">
+            <div class="builder-header">
+                <h1>Resume Builder</h1>
+                <p>Fill in your details to create a professional resume</p>
+            </div>
+            
+            <div class="builder-tabs">
+                <button class="tab-btn active" data-tab="personal">Personal</button>
+                <button class="tab-btn" data-tab="experience">Experience</button>
+                <button class="tab-btn" data-tab="education">Education</button>
+                <button class="tab-btn" data-tab="skills">Skills</button>
+            </div>
+            
+            <div class="tab-content">
+                <!-- Personal Information Section -->
+                <div id="personal" class="tab-pane active">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="full_name" class="form-label">Full Name</label>
+                                <input type="text" id="full_name" class="form-control" placeholder="John Doe">
+                            </div>
+                            <div class="form-col">
+                                <label for="job_title" class="form-label">Professional Title</label>
+                                <input type="text" id="job_title" class="form-control" placeholder="Software Engineer">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                            </div>
+                            <div class="form-col">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="(123) 456-7890">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" id="address" class="form-control" placeholder="City, Country">
+                            </div>
+                            <div class="form-col">
+                                <label for="linkedin" class="form-label">LinkedIn Profile</label>
+                                <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/yourprofile">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="summary" class="form-label">Professional Summary</label>
+                                <textarea id="summary" class="form-control" rows="4" placeholder="Briefly describe your professional background and skills"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="photo" class="form-label">Upload Photo (Optional)</label>
+                                <input type="file" id="photo" class="form-control" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience Section -->
+                <div id="experience" class="tab-pane">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Work Experience</h3>
+                        <div id="experience-fields">
+                            <div class="experience-item">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Job Title</label>
+                                        <input type="text" class="form-control job-title" placeholder="Software Developer">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">Company</label>
+                                        <input type="text" class="form-control company" placeholder="Tech Company Inc.">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Start Date</label>
+                                        <input type="text" class="form-control start-date" placeholder="Month Year">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">End Date (Leave blank if current)</label>
+                                        <input type="text" class="form-control end-date" placeholder="Month Year or Present">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Job Description</label>
+                                        <textarea class="form-control description" rows="4" placeholder="Describe your responsibilities and achievements (bullet points work best)"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <button class="remove-item-btn">
+                                    <i class="mdi mdi-delete"></i> Remove Position
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="add-experience" class="add-item-btn">
+                            <i class="mdi mdi-plus"></i> Add Another Position
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Education Section -->
+                <div id="education" class="tab-pane">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Education</h3>
+                        <div id="education-fields">
+                            <div class="education-item">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Degree/Certification</label>
+                                        <input type="text" class="form-control degree" placeholder="Bachelor of Science in Computer Science">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">Institution</label>
+                                        <input type="text" class="form-control institution" placeholder="University Name">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Graduation Date</label>
+                                        <input type="text" class="form-control graduation-date" placeholder="Month Year">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">GPA (Optional)</label>
+                                        <input type="text" class="form-control gpa" placeholder="3.8">
+                                    </div>
+                                </div>
+                                
+                                <button class="remove-item-btn">
+                                    <i class="mdi mdi-delete"></i> Remove Education
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="add-education" class="add-item-btn">
+                            <i class="mdi mdi-plus"></i> Add Another Education
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Skills Section -->
+                <div id="skills" class="tab-pane">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Skills</h3>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label">Your Skills</label>
+                                <div id="skills-chips" class="chips-container"></div>
+                                <small>Type a skill and press enter to add it</small>
+                            </div>
+                        </div>
+                        
+                        <h3 class="form-section-title">Languages</h3>
+                        <div id="language-fields">
+                            <div class="language-item">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Language</label>
+                                        <input type="text" class="form-control language" placeholder="English">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">Proficiency Level</label>
+                                        <select class="form-control proficiency">
+                                            <option value="" disabled selected>Select Proficiency</option>
+                                            <option value="Native">Native</option>
+                                            <option value="Fluent">Fluent</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Basic">Basic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <button class="remove-item-btn">
+                                    <i class="mdi mdi-delete"></i> Remove Language
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="add-language" class="add-item-btn">
+                            <i class="mdi mdi-plus"></i> Add Another Language
+                        </button>
+                        
+                        <h3 class="form-section-title">Certifications (Optional)</h3>
+                        <div id="certification-fields">
+                            <div class="certification-item">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="form-label">Certification Name</label>
+                                        <input type="text" class="form-control certification-name" placeholder="Certified Web Developer">
+                                    </div>
+                                    <div class="form-col">
+                                        <label class="form-label">Date Obtained</label>
+                                        <input type="text" class="form-control certification-date" placeholder="Month Year">
+                                    </div>
+                                </div>
+                                
+                                <button class="remove-item-btn">
+                                    <i class="mdi mdi-delete"></i> Remove Certification
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="add-certification" class="add-item-btn">
+                            <i class="mdi mdi-plus"></i> Add Another Certification
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="generate-resume" class="btn btn-primary">
+                    <i class="mdi mdi-file-download-outline btn-icon"></i> Generate Resume
+                </button>
+            </div>
         </div>
     </main>
 
-    <!-- Resume Preview Modal -->
-    <div id="preview-modal" class="modal modal-fixed-footer">
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
         <div class="modal-content">
-            <h4>Resume Preview</h4>
-            <div class="row">
-                <div class="col s12">
-                    <div id="resume-preview" class="resume-preview">
-                        <!-- Resume content will be generated here -->
-                    </div>
-                </div>
+            <h2>Resume Preview</h2>
+            <div id="resume-preview" class="preview-container">
+                <!-- Resume content will be generated here -->
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-            <a href="#!" class="waves-effect waves-green btn generate-pdf">Download PDF</a>
-            <a href="#!" class="waves-effect waves-green btn generate-doc">Download DOC</a>
+            <button class="btn btn-outline modal-close">Close</button>
+            <button id="download-pdf" class="btn btn-primary">
+                <i class="mdi mdi-file-pdf btn-icon"></i> Download PDF
+            </button>
+            <button id="download-doc" class="btn btn-secondary">
+                <i class="mdi mdi-file-word btn-icon"></i> Download DOC
+            </button>
         </div>
     </div>
 
@@ -310,10 +300,50 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="scripts/auth.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Update auth UI
+        onAuthStateChanged(auth, (user) => {
+            const loggedInElements = document.querySelectorAll('[data-auth="logged-in"]');
+            const loggedOutElements = document.querySelectorAll('[data-auth="logged-out"]');
+            
+            if (user) {
+                loggedInElements.forEach(el => el.style.display = 'block');
+                loggedOutElements.forEach(el => el.style.display = 'none');
+                document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
+            } else {
+                loggedInElements.forEach(el => el.style.display = 'none');
+                loggedOutElements.forEach(el => el.style.display = 'block');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logout')?.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
     <script src="scripts/builder.js"></script>
 </body>
 </html>
