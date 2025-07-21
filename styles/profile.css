@@ -1,0 +1,125 @@
+/* profile.css - Styles specific to the profile page */
+
+/* Profile Header */
+.dashboard-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header .header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Profile Form Styling */
+.profile-form {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.profile-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.profile-form .form-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #2d3748;
+}
+
+.profile-form .form-control {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.profile-form .form-control:disabled {
+    background-color: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.profile-form .form-control:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    outline: none;
+}
+
+.profile-form .form-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Profile Info Cards */
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-info-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.profile-info-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.profile-info-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+/* Badge for plan */
+.badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #e0e7ff;
+    color: #4361ee;
+    margin-top: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-form {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .sidebar {
+        order: 2;
+    }
+    
+    .dashboard-content {
+        order: 1;
+    }
+}

@@ -581,3 +581,30 @@ a {
         margin-right: 0;
     }
 }
+.user-avatar {
+    width: 50px;           /* Adjust size as needed */
+    height: 50px;          /* Adjust size as needed */
+    border-radius: 50%;    /* Makes it circular */
+    object-fit: cover;     /* Ensures image covers the space without distortion */
+    display: block;        /* Removes extra space below image */
+}
+.user-avatar {
+    /* Add a border */
+    border: 2px solid #fff;
+    /* Add shadow */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* Smooth hover effect */
+    transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+.user-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  border: 3px solid #e0e7ff;
+}

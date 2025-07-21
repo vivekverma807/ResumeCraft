@@ -4,228 +4,329 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - ResumeCraft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/dashboard.css">
-    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/profile.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            height: calc(100vh - 70px);
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        
+        .dashboard-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 2rem;
+        }
+        
+        .user-profile {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            gap: 0.75rem;
+        }
+        
+        .menu-item:hover {
+            background: #e0e7ff;
+            color: #4361ee;
+        }
+        
+        .menu-item.active {
+            background: #e0e7ff;
+            color: #4361ee;
+            font-weight: 500;
+        }
+        
+        .menu-item i {
+            font-size: 1.25rem;
+        }
+        
+        /* Profile layout */
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .profile-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            flex: 1;
+        }
+        
+        .profile-info-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-form-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Form styling */
+        .profile-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        /* Info cards styling */
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-info-item {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .profile-info-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-info-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+        
+        /* Badge for plan */
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background-color: #e0e7ff;
+            color: #4361ee;
+            margin-top: 0.5rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .sidebar {
+                height: auto;
+                order: 2;
+            }
+            
+            .dashboard-content {
+                order: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
-        <div class="container navbar-container">
-            <a href="index.html" class="navbar-brand">ResumeCraft</a>
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span><b>ResumeCraft</b></span>
+            </a>
             <div class="navbar-menu">
                 <a href="index.html" class="navbar-link">Home</a>
+                <a href="dashboard.html" class="navbar-link">Dashboard</a>
                 <a href="builder.html" class="btn btn-primary">
-                    <i class="mdi mdi-plus btn-icon"></i> New Resume
+                    <i class="mdi mdi-plus"></i> New Resume
                 </a>
                 <div class="user-dropdown">
                     <button class="user-btn">
-                        <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar">
-                        <span id="username">User</span>
+                        <img src="assets/images/default.jpg" alt="User" class="user-avatar">
+                        <span id="username">Account</span>
                         <i class="mdi mdi-chevron-down"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="profile.html" class="dropdown-item active"><i class="mdi mdi-account"></i> Profile</a>
+                        <a href="profile.html" class="dropdown-item active">
+                            <i class="mdi mdi-account"></i> Profile
+                        </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" id="logout" class="dropdown-item"><i class="mdi mdi-logout"></i> Logout</a>
+                        <a href="#" id="logout" class="dropdown-item">
+                            <i class="mdi mdi-logout"></i> Logout
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="dashboard">
+    <main class="dashboard-container">
         <div class="container">
-            <div class="row">
+            <div class="dashboard-grid">
                 <!-- Sidebar -->
-                <div class="col s12 m4 l3">
-                    <div class="sidebar">
-                        <div class="user-profile">
-                            <img src="assets/images/user-placeholder.jpg" alt="User" class="user-avatar-large">
-                            <h3 id="user-name">John Doe</h3>
-                            <p id="user-email">john@example.com</p>
-                            
-                            <div class="profile-stats">
-                                <div class="stat-item">
-                                    <div class="stat-value" id="resume-count">5</div>
-                                    <div class="stat-label">Resumes</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value" id="download-count">12</div>
-                                    <div class="stat-label">Downloads</div>
-                                </div>
-                            </div>
-                            
-                            <a href="profile.html" class="btn btn-outline" style="width: 100%; margin-top: 20px;">
-                                <i class="mdi mdi-account-edit btn-icon"></i> Edit Profile
-                            </a>
-                        </div>
-                        
-                        <div class="sidebar-menu">
-                            <a href="dashboard.html" class="menu-item">
-                                <i class="mdi mdi-view-dashboard"></i> Dashboard
-                            </a>
-                            <a href="resumes.html" class="menu-item">
-                                <i class="mdi mdi-file-document-multiple"></i> My Resumes
-                            </a>
-                            <a href="cover-letters.html" class="menu-item">
-                                <i class="mdi mdi-email"></i> Cover Letters
-                            </a>
-                            <a href="templates.html" class="menu-item">
-                                <i class="mdi mdi-palette"></i> Templates
-                            </a>
-                            <a href="settings.html" class="menu-item">
-                                <i class="mdi mdi-cog"></i> Settings
-                            </a>
-                        </div>
+                <div class="sidebar">
+                    <div class="user-profile">
+                        <img src="assets/images/default.jpg" alt="User" class="user-avatar-large">
+                        <h3 id="profile-name">John Doe</h3>
+                        <p id="profile-email">john@example.com</p>
+                        <p id="profile-plan" class="badge">Free Plan</p>
+                    </div>
+                    
+                    <div class="sidebar-menu">
+                        <a href="dashboard.html" class="menu-item">
+                            <i class="mdi mdi-view-dashboard"></i> Dashboard
+                        </a>
+                        <a href="profile.html" class="menu-item active">
+                            <i class="mdi mdi-account"></i> Profile
+                        </a>
                     </div>
                 </div>
                 
                 <!-- Main Content -->
-                <div class="col s12 m8 l9">
-                    <div class="dashboard-header">
-                        <h1>My Profile</h1>
-                        <p>Manage your personal information and account settings</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Personal Information</h3>
+                <div class="dashboard-content">
+                    <div class="profile-container">
+                        <div class="profile-header">
+                            <div class="header-title">
+                                <h1>Profile Settings</h1>
+                                <button id="edit-profile-btn" class="btn btn-primary">
+                                    <i class="mdi mdi-pencil"></i> Edit Profile
+                                </button>
+                            </div>
+                            <p>Manage your account information and preferences</p>
                         </div>
-                        <div class="card-body">
-                            <form id="profile-form">
-                                <div class="form-row">
-                                    <div class="form-col s12 m6">
-                                        <div class="form-group">
-                                            <label for="first-name" class="form-label">First Name</label>
-                                            <input type="text" id="first-name" class="form-control" value="John">
-                                        </div>
+                        
+                        <div class="profile-content">
+                            <!-- Profile Info Section -->
+                            <div class="profile-info-section">
+                                <div class="profile-info">
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-label">Member Since</div>
+                                        <div class="profile-info-value" id="member-since">-</div>
                                     </div>
-                                    <div class="form-col s12 m6">
-                                        <div class="form-group">
-                                            <label for="last-name" class="form-label">Last Name</label>
-                                            <input type="text" id="last-name" class="form-control" value="Doe">
-                                        </div>
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-label">Last Login</div>
+                                        <div class="profile-info-value" id="last-login">-</div>
                                     </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" id="email" class="form-control" value="john@example.com" disabled>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="location" class="form-label">Location</label>
-                                    <input type="text" id="location" class="form-control" value="San Francisco, CA">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="headline" class="form-label">Professional Headline</label>
-                                    <input type="text" id="headline" class="form-control" value="Senior Software Engineer">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="bio" class="form-label">Bio</label>
-                                    <textarea id="bio" class="form-control" rows="4">Experienced software engineer with 5+ years of experience in web development. Specialized in JavaScript frameworks and cloud technologies.</textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">Profile Picture</label>
-                                    <div class="file-upload">
-                                        <input type="file" id="profile-pic" accept="image/*" style="display: none;">
-                                        <div class="upload-preview">
-                                            <img src="assets/images/user-placeholder.jpg" alt="Profile Preview" id="profile-preview" class="profile-preview">
-                                            <label for="profile-pic" class="btn btn-outline">
-                                                <i class="mdi mdi-camera btn-icon"></i> Change Photo
-                                            </label>
-                                        </div>
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-label">Resumes Created</div>
+                                        <div class="profile-info-value" id="profile-resume-count">0</div>
                                     </div>
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="mdi mdi-content-save btn-icon"></i> Save Changes
-                                    </button>
-                                    <button type="button" class="btn btn-outline">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Social Profiles</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-col s12 m6">
-                                    <div class="form-group with-icon">
-                                        <i class="mdi mdi-linkedin"></i>
-                                        <input type="url" class="form-control" placeholder="LinkedIn Profile URL" value="https://linkedin.com/in/johndoe">
-                                    </div>
-                                </div>
-                                <div class="form-col s12 m6">
-                                    <div class="form-group with-icon">
-                                        <i class="mdi mdi-github"></i>
-                                        <input type="url" class="form-control" placeholder="GitHub Profile URL" value="https://github.com/johndoe">
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-label">Account Plan</div>
+                                        <div class="profile-info-value" id="profile-plan-value">Free</div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="form-row">
-                                <div class="form-col s12 m6">
-                                    <div class="form-group with-icon">
-                                        <i class="mdi mdi-twitter"></i>
-                                        <input type="url" class="form-control" placeholder="Twitter Profile URL" value="https://twitter.com/johndoe">
-                                    </div>
-                                </div>
-                                <div class="form-col s12 m6">
-                                    <div class="form-group with-icon">
-                                        <i class="mdi mdi-web"></i>
-                                        <input type="url" class="form-control" placeholder="Personal Website" value="https://johndoe.dev">
-                                    </div>
+                            <!-- Profile Form Section -->
+                            <div class="profile-form-section">
+                                <div class="profile-form">
+                                    <form id="profile-form">
+                                        <div class="form-fields">
+                                            <div class="form-group">
+                                                <label for="name" class="form-label">Full Name</label>
+                                                <input type="text" id="name" class="form-control" required disabled>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email Address</label>
+                                                <input type="email" id="email" class="form-control" disabled>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input type="tel" id="phone" class="form-control" disabled>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="location" class="form-label">Location</label>
+                                                <input type="text" id="location" class="form-control" disabled>
+                                            </div>
+                                            
+                                            <div class="form-group full-width">
+                                                <label for="bio" class="form-label">Bio</label>
+                                                <textarea id="bio" class="form-control" rows="3" disabled></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-actions" id="save-actions" style="display: none;">
+                                            <button type="button" id="cancel-edit" class="btn btn-outline">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="mdi mdi-content-save"></i> Save Changes
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Change Password</h3>
-                        </div>
-                        <div class="card-body">
-                            <form id="password-form">
-                                <div class="form-group">
-                                    <label for="current-password" class="form-label">Current Password</label>
-                                    <input type="password" id="current-password" class="form-control">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="new-password" class="form-label">New Password</label>
-                                    <input type="password" id="new-password" class="form-control">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="confirm-password" class="form-label">Confirm New Password</label>
-                                    <input type="password" id="confirm-password" class="form-control">
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="mdi mdi-lock-reset btn-icon"></i> Update Password
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -235,7 +336,162 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/profile.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ-WsH_1vdf0GcL5d57SZWBjOdWXZ1brg",
+            authDomain: "resumecraft-b08a2.firebaseapp.com",
+            projectId: "resumecraft-b08a2",
+            storageBucket: "resumecraft-b08a2.appspot.com",
+            messagingSenderId: "36659463133",
+            appId: "1:36659463133:web:9bda78c59423d7fd95ec34",
+            measurementId: "G-MX7R8V0GLT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Format date
+        function formatDate(date) {
+            if (!date) return 'N/A';
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Toggle edit mode
+        function toggleEditMode(enable) {
+            const inputs = document.querySelectorAll('#profile-form input:not([disabled]), #profile-form textarea');
+            inputs.forEach(input => {
+                input.disabled = !enable;
+            });
+            
+            document.getElementById('save-actions').style.display = enable ? 'flex' : 'none';
+            document.getElementById('edit-profile-btn').style.display = enable ? 'none' : 'block';
+        }
+
+        // Update auth UI
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            // Update user info
+            document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
+            document.getElementById('profile-name').textContent = user.displayName || user.email;
+            document.getElementById('profile-email').textContent = user.email;
+            
+            // Load additional profile data if exists
+            loadProfileData(user.uid);
+        });
+
+        // Load additional profile data from Firestore
+        async function loadProfileData(userId) {
+            try {
+                const docRef = doc(db, "users", userId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    // Set form values
+                    document.getElementById('name').value = data.name || '';
+                    document.getElementById('email').value = data.email || '';
+                    document.getElementById('phone').value = data.phone || '';
+                    document.getElementById('location').value = data.location || '';
+                    document.getElementById('bio').value = data.bio || '';
+                    
+                    // Set profile info cards
+                    document.getElementById('member-since').textContent = data.createdAt ? formatDate(data.createdAt.toDate()) : 'N/A';
+                    document.getElementById('last-login').textContent = data.lastLogin ? formatDate(data.lastLogin.toDate()) : 'N/A';
+                    document.getElementById('profile-resume-count').textContent = data.resumeCount || 0;
+                    document.getElementById('profile-plan-value').textContent = data.plan ? data.plan.charAt(0).toUpperCase() + data.plan.slice(1) : 'Free';
+                    document.getElementById('profile-plan').textContent = data.plan ? data.plan.charAt(0).toUpperCase() + data.plan.slice(1) + ' Plan' : 'Free Plan';
+                }
+            } catch (error) {
+                console.log("Error loading profile data:", error);
+            }
+        }
+
+        // Edit profile button
+        document.getElementById('edit-profile-btn').addEventListener('click', () => {
+            toggleEditMode(true);
+        });
+
+        // Cancel edit button
+        document.getElementById('cancel-edit').addEventListener('click', () => {
+            toggleEditMode(false);
+            // Reload original data
+            const user = auth.currentUser;
+            if (user) loadProfileData(user.uid);
+        });
+
+        // Handle form submission
+        document.getElementById('profile-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+            const bio = document.getElementById('bio').value;
+            
+            try {
+                // Update profile in Firestore
+                await updateDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    phone: phone,
+                    location: location,
+                    bio: bio
+                });
+                
+                // Update UI
+                document.getElementById('username').textContent = name || user.email.split('@')[0];
+                document.getElementById('profile-name').textContent = name || user.email;
+                
+                // Disable edit mode
+                toggleEditMode(false);
+                
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Profile updated successfully',
+                    icon: 'success',
+                    confirmButtonColor: '#4361ee'
+                });
+            } catch (error) {
+                console.error("Error updating profile:", error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Failed to update profile: ' + error.message,
+                    icon: 'error',
+                    confirmButtonColor: '#4361ee'
+                });
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logout')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
 </body>
 </html>

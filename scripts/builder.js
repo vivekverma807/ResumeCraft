@@ -18,34 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Python': null,
                 'Java': null,
                 'C++': null,
-                'PHP': null,
                 'HTML': null,
                 'CSS': null,
                 'React': null,
                 'Angular': null,
-                'Vue.js': null,
-                'Node.js': null,
-                'Express': null,
-                'Django': null,
-                'Flask': null,
-                'Ruby on Rails': null,
-                'MySQL': null,
-                'PostgreSQL': null,
-                'MongoDB': null,
-                'AWS': null,
-                'Azure': null,
-                'Google Cloud': null,
-                'Docker': null,
-                'Kubernetes': null,
-                'Git': null,
-                'CI/CD': null,
-                'REST API': null,
-                'GraphQL': null,
-                'Machine Learning': null,
-                'Data Analysis': null,
-                'Project Management': null,
-                'Agile': null,
-                'Scrum': null
+                'Node.js': null
             },
             limit: 20,
             minLength: 1
@@ -68,18 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(tabId).classList.add('active');
         });
     });
-    
-    // Check URL for template parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const template = urlParams.get('template');
-    if (template) {
-        Swal.fire({
-            title: 'Template Selected',
-            text: `You're using the ${template} template`,
-            icon: 'info',
-            confirmButtonColor: '#4361ee'
-        });
-    }
     
     // Add experience field
     document.getElementById('add-experience').addEventListener('click', function() {
@@ -207,30 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
         generateDOC();
     });
     
-    // Generate resume button
-    document.getElementById('generate-resume').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Generate Resume',
-            text: 'Would you like to preview your resume or download it directly?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Preview',
-            cancelButtonText: 'Download PDF',
-            confirmButtonColor: '#4361ee',
-            cancelButtonColor: '#3f37c9'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                generateResumePreview();
-                const modal = M.Modal.getInstance(document.getElementById('preview-modal'));
-                modal.open();
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                generatePDF();
-            }
-        });
-    });
-    
     // Save button
-    document.getElementById('save-btn')?.addEventListener('click', saveResume);
+    document.getElementById('save-btn').addEventListener('click', saveResume);
     
     // Helper function to reset inputs in cloned elements
     function resetInputs(parent) {
@@ -255,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Create resume HTML
         let resumeHTML = `
-            <div class="resume-template-${formData.template || 'classic'}">
+            <div class="resume-template">
                 <div class="resume-header">
                     <div>
                         <h1>${formData.full_name || 'Your Name'}</h1>
@@ -370,8 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             education: [],
             skills: [],
             languages: [],
-            certifications: [],
-            template: new URLSearchParams(window.location.search).get('template') || 'classic'
+            certifications: []
         };
         
         // Get experience data
@@ -421,101 +363,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Save resume to Firestore
-    function saveResume() {
-        if (!firebase.auth().currentUser) {
-            window.location.href = 'auth/login.html?redirect=builder.html';
+    async function saveResume() {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            window.location.href = 'auth/login.html';
             return;
         }
         
         const formData = getFormData();
         const urlParams = new URLSearchParams(window.location.search);
         const resumeId = urlParams.get('resumeId');
-        const user = firebase.auth().currentUser;
         
         const resumeDoc = {
             userId: user.uid,
             name: formData.full_name || 'Untitled Resume',
-            template: formData.template,
             data: formData,
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
         };
         
         const saveBtn = document.getElementById('save-btn');
         saveBtn.disabled = true;
-        saveBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin btn-icon"></i> Saving...';
+        saveBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Saving...';
         
-        if (resumeId) {
-            // Update existing resume
-            firebase.firestore().collection('resumes').doc(resumeId).update(resumeDoc)
-                .then(() => {
-                    saveBtn.disabled = false;
-                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Resume updated successfully',
-                        icon: 'success',
-                        confirmButtonColor: '#4361ee'
-                    });
-                })
-                .catch(error => {
-                    saveBtn.disabled = false;
-                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Error updating resume: ' + error.message,
-                        icon: 'error',
-                        confirmButtonColor: '#4361ee'
-                    });
+        try {
+            if (resumeId) {
+                // Update existing resume
+                await firebase.firestore().collection('resumes').doc(resumeId).update(resumeDoc);
+                Swal.fire('Success!', 'Resume updated successfully', 'success');
+            } else {
+                // Create new resume
+                const docRef = await firebase.firestore().collection('resumes').add(resumeDoc);
+                window.history.replaceState({}, document.title, `builder.html?resumeId=${docRef.id}`);
+                
+                // Update user's resume count
+                await firebase.firestore().collection('users').doc(user.uid).update({
+                    resumeCount: firebase.firestore.FieldValue.increment(1)
                 });
-        } else {
-            // Create new resume
-            firebase.firestore().collection('resumes').add(resumeDoc)
-                .then((docRef) => {
-                    // Update URL with new resume ID
-                    window.history.replaceState({}, document.title, `builder.html?resumeId=${docRef.id}`);
-                    
-                    // Update user's resume count
-                    firebase.firestore().collection('users').doc(user.uid).update({
-                        resumeCount: firebase.firestore.FieldValue.increment(1)
-                    });
-                    
-                    saveBtn.disabled = false;
-                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Resume saved successfully',
-                        icon: 'success',
-                        confirmButtonColor: '#4361ee'
-                    });
-                })
-                .catch(error => {
-                    saveBtn.disabled = false;
-                    saveBtn.innerHTML = '<i class="mdi mdi-content-save btn-icon"></i> Save';
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Error saving resume: ' + error.message,
-                        icon: 'error',
-                        confirmButtonColor: '#4361ee'
-                    });
-                });
+                
+                Swal.fire('Success!', 'Resume saved successfully', 'success');
+            }
+        } catch (error) {
+            console.error('Error saving resume:', error);
+            Swal.fire('Error', 'Failed to save resume: ' + error.message, 'error');
+        } finally {
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="mdi mdi-content-save"></i> Save';
         }
     }
     
     // Generate PDF
     function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        
+        // Generate the preview first
         generateResumePreview();
         
+        // Get the preview element
+        const element = document.getElementById('resume-preview');
+        
         Swal.fire({
-            title: 'Generating PDF...',
-            html: 'Please wait while we prepare your resume',
+            title: 'Generating PDF',
+            html: 'Please wait while we prepare your resume...',
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading();
                 
-                // Use html2canvas and jsPDF to generate PDF
-                const preview = document.getElementById('resume-preview');
-                
-                html2canvas(preview, {
+                html2canvas(element, {
                     scale: 2,
                     logging: false,
                     useCORS: true
@@ -523,35 +436,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     const imgData = canvas.toDataURL('image/png');
                     const pdf = new jsPDF('p', 'mm', 'a4');
                     const imgWidth = 210; // A4 width in mm
-                    const pageHeight = 295; // A4 height in mm
                     const imgHeight = canvas.height * imgWidth / canvas.width;
-                    let heightLeft = imgHeight;
-                    let position = 0;
                     
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                    
-                    while (heightLeft >= 0) {
-                        position = heightLeft - imgHeight;
-                        pdf.addPage();
-                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pageHeight;
-                    }
-                    
-                    // Save the PDF
-                    pdf.save(`${document.getElementById('full_name').value || 'resume'}.pdf`);
+                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                    pdf.save('resume.pdf');
                     
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Your resume has been downloaded as PDF',
-                        icon: 'success',
-                        confirmButtonColor: '#4361ee'
+                        text: 'Your resume has been downloaded',
+                        icon: 'success'
                     });
                 }).catch(err => {
                     console.error('Error generating PDF:', err);
                     Swal.fire({
                         title: 'Error',
-                        text: 'Failed to generate PDF. Please try again.',
+                        text: 'Failed to generate PDF',
                         icon: 'error'
                     });
                 });
