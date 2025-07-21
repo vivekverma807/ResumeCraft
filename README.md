@@ -25,8 +25,7 @@
 
 ## 🖥️ Live Demo
 
-🚀 _https://vivekverma807.github.io/ResumeCraft/_
-
+🚀 <a href="https://vivekverma807.github.io/ResumeCraft/" target="_blank">View Live Demo</a>
 ---
 
 ## 📸 Screenshots
