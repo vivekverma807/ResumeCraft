@@ -25,7 +25,7 @@
 
 ## 🖥️ Live Demo
 
-🚀 _Coming Soon..._
+🚀 _https://vivekverma807.github.io/ResumeCraft/_
 
 ---
 
