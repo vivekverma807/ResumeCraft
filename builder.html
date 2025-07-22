@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="./styles/builder.css">
     <style>
         #resume-preview {
-            width: 800px;
+            width: 100%;
+            max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
             background: white;
@@ -22,6 +23,7 @@
             justify-content: center;
             padding: 1rem;
             overflow-y: auto;
+            width: 100%;
         }
         
         .modal-body {
@@ -29,20 +31,29 @@
             justify-content: center;
             align-items: center;
             min-height: 60vh;
+            padding: 1rem;
         }
         
         .resume-preview {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: #333;
+            width: 100%;
         }
         
         .resume-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid #4361ee;
+        }
+        
+        @media (min-width: 768px) {
+            .resume-header {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
         
         .resume-header h1 {
@@ -80,8 +91,15 @@
         
         .experience-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-bottom: 5px;
+        }
+        
+        @media (min-width: 576px) {
+            .experience-header {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
         
         .experience-header strong {
@@ -111,8 +129,15 @@
         
         .education-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-bottom: 5px;
+        }
+        
+        @media (min-width: 576px) {
+            .education-header {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
         
         .skills-list {
@@ -131,8 +156,77 @@
         
         .language-item {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        @media (min-width: 576px) {
+            .language-item {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        
+        .language-item .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (min-width: 576px) {
+            .language-item .form-group {
+                margin-bottom: 0;
+                flex: 1;
+                margin-right: 1rem;
+            }
+        }
+        
+        .language-item .remove-item-btn {
+            margin-top: 0.5rem;
+        }
+        
+        @media (min-width: 576px) {
+            .language-item .remove-item-btn {
+                margin-top: 0;
+                align-self: center;
+            }
+        }
+        
+        /* Modal improvements */
+        .modal-container {
+            max-width: 90vw;
+            width: 100%;
+            margin: 1rem;
+        }
+        
+        @media (min-width: 992px) {
+            .modal-container {
+                max-width: 900px;
+            }
+        }
+        
+        /* Login alert */
+        .login-alert {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-alert i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .login-alert a {
+            color: #4361ee;
+            font-weight: 500;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -146,10 +240,10 @@
                 <a href="index.html" class="navbar-link">Home</a>
                 <a href="dashboard.html" class="navbar-link">Dashboard</a>
                 <button id="preview-btn" class="btn btn-outline">
-                    <i class="mdi mdi-eye-outline"></i> Preview
+                    <i class="mdi mdi-eye-outline"></i> <span class="btn-text">Preview</span>
                 </button>
                 <button id="save-btn" class="btn btn-primary">
-                    <i class="mdi mdi-content-save"></i> Save
+                    <i class="mdi mdi-content-save"></i> <span class="btn-text">Save</span>
                 </button>
                 <div class="user-dropdown">
                     <button class="user-btn">
@@ -178,18 +272,26 @@
                 <p>Fill in your details to create a professional resume</p>
             </div>
             
+            <div id="login-alert" class="login-alert" style="display: none;">
+                <i class="mdi mdi-alert-circle"></i>
+                <div>
+                    You need to <a href="auth/login.html">login</a> to create and save your resume. 
+                    You can still preview how it would look.
+                </div>
+            </div>
+            
             <div class="builder-tabs">
                 <button class="tab-btn active" data-tab="personal">
-                    <i class="mdi mdi-account"></i> Personal
+                    <i class="mdi mdi-account"></i> <span class="tab-text">Personal</span>
                 </button>
                 <button class="tab-btn" data-tab="experience">
-                    <i class="mdi mdi-briefcase"></i> Experience
+                    <i class="mdi mdi-briefcase"></i> <span class="tab-text">Experience</span>
                 </button>
                 <button class="tab-btn" data-tab="education">
-                    <i class="mdi mdi-school"></i> Education
+                    <i class="mdi mdi-school"></i> <span class="tab-text">Education</span>
                 </button>
                 <button class="tab-btn" data-tab="skills">
-                    <i class="mdi mdi-tools"></i> Skills
+                    <i class="mdi mdi-tools"></i> <span class="tab-text">Skills</span>
                 </button>
             </div>
             
@@ -233,7 +335,7 @@
                                 <div class="file-upload">
                                     <input type="file" id="photo" accept="image/*">
                                     <label for="photo" class="file-upload-label">
-                                        <i class="mdi mdi-cloud-upload"></i> Choose File
+                                        <i class="mdi mdi-cloud-upload"></i> <span>Choose File</span>
                                     </label>
                                     <span class="file-name">No file chosen</span>
                                 </div>
@@ -260,11 +362,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Start Date</label>
-                                        <input type="text" class="form-control start-date" placeholder="Month Year">
+                                        <input type="month" class="form-control start-date" placeholder="Month Year">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">End Date (Leave blank if current)</label>
-                                        <input type="text" class="form-control end-date" placeholder="Month Year or Present">
+                                        <input type="month" class="form-control end-date" placeholder="Month Year or Present">
                                     </div>
                                     <div class="form-group full-width">
                                         <label class="form-label">Job Description</label>
@@ -273,12 +375,12 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-danger remove-item-btn">
-                                    <i class="mdi mdi-delete"></i> Remove Position
+                                    <i class="mdi mdi-delete"></i> <span>Remove Position</span>
                                 </button>
                             </div>
                         </div>
                         <button id="add-experience" class="btn btn-secondary add-item-btn">
-                            <i class="mdi mdi-plus"></i> Add Another Position
+                            <i class="mdi mdi-plus"></i> <span>Add Another Position</span>
                         </button>
                     </div>
                 </div>
@@ -301,7 +403,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Graduation Date</label>
-                                        <input type="text" class="form-control graduation-date" placeholder="Month Year">
+                                        <input type="month" class="form-control graduation-date" placeholder="Month Year">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">GPA (Optional)</label>
@@ -309,12 +411,12 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-danger remove-item-btn">
-                                    <i class="mdi mdi-delete"></i> Remove Education
+                                    <i class="mdi mdi-delete"></i> <span>Remove Education</span>
                                 </button>
                             </div>
                         </div>
                         <button id="add-education" class="btn btn-secondary add-item-btn">
-                            <i class="mdi mdi-plus"></i> Add Another Education
+                            <i class="mdi mdi-plus"></i> <span>Add Another Education</span>
                         </button>
                     </div>
                 </div>
@@ -354,12 +456,12 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-danger remove-item-btn">
-                                    <i class="mdi mdi-delete"></i> Remove Language
+                                    <i class="mdi mdi-delete"></i> <span>Remove Language</span>
                                 </button>
                             </div>
                         </div>
                         <button id="add-language" class="btn btn-secondary add-item-btn">
-                            <i class="mdi mdi-plus"></i> Add Another Language
+                            <i class="mdi mdi-plus"></i> <span>Add Another Language</span>
                         </button>
                     </div>
                 </div>
@@ -418,15 +520,29 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                document.getElementById('username').textContent = user.displayName || user.email.split('@')[0];
+                document.getElementById('login-alert').style.display = 'none';
+            } else {
+                // User is signed out
+                document.getElementById('login-alert').style.display = 'flex';
+                document.getElementById('save-btn').disabled = true;
+                document.getElementById('save-btn').classList.add('disabled');
+            }
+        });
+
         // Initialize Materialize components
         document.addEventListener('DOMContentLoaded', function() {
             M.Sidenav.init(document.querySelectorAll('.sidenav'));
-            M.Datepicker.init(document.querySelectorAll('.datepicker'), {
-                format: 'mmmm yyyy',
-                autoClose: true
-            });
             M.FormSelect.init(document.querySelectorAll('select'));
-            M.Modal.init(document.querySelectorAll('.modal'));
+            const modal = M.Modal.init(document.querySelectorAll('.modal'), {
+                onOpenStart: function() {
+                    generateResumePreview();
+                }
+            });
             
             // Initialize chips
             M.Chips.init(document.querySelector('#skills-chips'), {
@@ -472,10 +588,6 @@
                 const newExperience = experienceFields.firstElementChild.cloneNode(true);
                 resetInputs(newExperience);
                 experienceFields.appendChild(newExperience);
-                M.Datepicker.init(newExperience.querySelectorAll('.datepicker'), {
-                    format: 'mmmm yyyy',
-                    autoClose: true
-                });
             });
             
             // Remove experience field
@@ -500,10 +612,6 @@
                 const newEducation = educationFields.firstElementChild.cloneNode(true);
                 resetInputs(newEducation);
                 educationFields.appendChild(newEducation);
-                M.Datepicker.init(newEducation.querySelectorAll('.datepicker'), {
-                    format: 'mmmm yyyy',
-                    autoClose: true
-                });
             });
             
             // Remove education field
@@ -549,9 +657,8 @@
             
             // Preview button click
             document.getElementById('preview-btn').addEventListener('click', function() {
-                generateResumePreview();
-                const modal = M.Modal.getInstance(document.getElementById('preview-modal'));
-                modal.open();
+                const modalInstance = M.Modal.getInstance(document.getElementById('preview-modal'));
+                modalInstance.open();
             });
             
             // Download PDF button
@@ -578,6 +685,12 @@
                 });
             });
             
+            // File upload display
+            document.getElementById('photo').addEventListener('change', function(e) {
+                const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+                document.querySelector('.file-name').textContent = fileName;
+            });
+            
             // Helper function to reset inputs in cloned elements
             function resetInputs(parent) {
                 const inputs = parent.querySelectorAll('input, textarea, select');
@@ -589,6 +702,13 @@
                         M.FormSelect.init(input);
                     }
                 });
+            }
+            
+            // Format date from month input
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
             }
             
             // Generate resume preview
@@ -633,7 +753,7 @@
                                                 <span>${exp.company || 'Company'}</span>
                                             </div>
                                             <div class="experience-date">
-                                                ${exp.start_date || 'Start Date'} - ${exp.end_date || 'Present'}
+                                                ${formatDate(exp.start_date) || 'Start Date'} - ${exp.end_date ? formatDate(exp.end_date) : 'Present'}
                                             </div>
                                         </div>
                                         <div class="experience-description">
@@ -657,7 +777,7 @@
                                                 <span>${edu.institution || 'Institution'}</span>
                                             </div>
                                             <div class="education-date">
-                                                ${edu.graduation_date || 'Graduation Date'}${edu.gpa ? `, GPA: ${edu.gpa}` : ''}
+                                                ${formatDate(edu.graduation_date) || 'Graduation Date'}${edu.gpa ? `, GPA: ${edu.gpa}` : ''}
                                             </div>
                                         </div>
                                     </div>
@@ -812,9 +932,6 @@
             // Generate PDF
             function generatePDF() {
                 const { jsPDF } = window.jspdf;
-                
-                // Generate the preview first
-                generateResumePreview();
                 
                 // Get the preview element
                 const element = document.getElementById('resume-preview');
